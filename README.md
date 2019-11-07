@@ -2,7 +2,7 @@
 
 Javascript exercises for the MSSE 663 Web Frameworks course.
 
-## Code Snippets
+## Code Exercises
 
 As part of the web frameworks course, students are required to submit exercises weekly that strengthen their understanding of OOP concepts using javascript and/or typescript.
 
