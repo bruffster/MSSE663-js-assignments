@@ -42,7 +42,7 @@ function oldOnesOnly(arr) {
 	// your code here
 }
 console.log(
-	namesOnly([
+	oldOnesOnly([
 		{
 			name: 'Angelina Jolie',
 			age: 80,
