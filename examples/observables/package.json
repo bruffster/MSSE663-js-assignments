@@ -1,0 +1,22 @@
+{
+  "name": "examples",
+  "version": "1.0.0",
+  "description": "Example app for unit testing.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -r ts-node/register ./*.spec.ts"
+  },
+  "author": "Morgna Worrell",
+  "license": "ISC",
+  "dependencies": {
+    "rxjs": "^6.5.3",
+    "typescript": "^3.7.2"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.5",
+    "@types/mocha": "^5.2.7",
+    "chai": "^4.2.0",
+    "mocha": "^6.2.2",
+    "ts-node": "^8.5.0"
+  }
+}
