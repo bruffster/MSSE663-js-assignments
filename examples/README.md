@@ -2,9 +2,11 @@
 
 In this directory, you'll find the following file structure:
 
-| Direcotry | Description                              |
-| --------- | ---------------------------------------- |
-| testing   | Testing examples. Includes unit and e2e. |
+| Direcotry   | Description                                                |
+| ----------- | ---------------------------------------------------------- |
+| observables | Observable examples. Includes unit tests only.             |
+| restful-api | RESTful API example using mongodb. No unit tests included. |
+| testing     | Testing examples. Includes unit and e2e tests.             |
 
 ## General Use
 
