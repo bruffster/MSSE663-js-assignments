@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint **/*.ts --fix",
-    "test": "mocha -r ts-node/register src/**/*.spec.ts"
+    "test": "mocha -r ts-node/register src/**/*.spec.ts",
+    "dev": "ts-node src/spread.ts",
+    "tsc": "tsc"
   },
   "author": "",
   "license": "ISC",
