@@ -1,4 +1,4 @@
-# Week 5 - Deconstructing
+# Week 5 - Destructuring
 
 NOTE: Be sure to complete the reading to understand how to complete these exercises.
 
