@@ -6,10 +6,12 @@ As part of the web frameworks course, students are required to submit exercises 
 
 Submissions should be made by forking this repo into each students' github account.
 
-## Requirements and Caveats
+## Instructions
 
-Use the following guidlines as reminders for your submissions.
+Each source file contains what is required for each number. Add the code necessary to complete the required exercise where specified.
 
-- Use ES6 as the primary javascript target.
-- All scripts should be linted before submission.
-- When specified, `.ts` files should be compiled to `.js`.
+## Submitting
+
+When completed, submit your assignments to WorldClass for the link pasting the url of you github link for the week.
+
+Ex.: https://github.com/chan1ks/MSSE663-js-assignments/tree/master/week2

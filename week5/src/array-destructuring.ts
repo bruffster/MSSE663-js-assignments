@@ -1,7 +1,7 @@
 // #1 Variable swapping
 export const fruits = ['apple', 'banana'];
 
-// Currently, I would get the following returns:
+// Currently, I would get the following:
 console.log(a); // 'apple'
 console.log(b); // 'banana'
 
@@ -16,6 +16,7 @@ export const food = ['apple', 'banana', 'chocolate', 'pears', 'oats', 'pizza'];
 
 // deconstruct here
 
+// expected result:
 console.log(a); // 'apple'
 console.log(b); // 'banana'
 console.log(others); // ['chocolate, 'pears', 'oats', 'pizza']
@@ -23,4 +24,6 @@ console.log(others); // ['chocolate, 'pears', 'oats', 'pizza']
 // #3 Array: Contruct a statement
 ['hello', 'taylor'];
 
-// 'hello, taylor!'
+// construct statement here
+
+// expected result: 'hello, taylor!'

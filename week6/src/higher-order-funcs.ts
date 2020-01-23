@@ -10,10 +10,16 @@
  */
 const things = ['thing1', 'thing2'];
 
+// create callback here
+
+// create map here
+
 /**
  * #2 Higher order then curry.
  *
  * - Write a function that accepts a key as a string.
- * - Filter the results from 1 to return a single thing object.
+ * - Filter the results from #1 to return a single `thing` object.
  * - Hoist that filter callback and curry all functions.
  */
+
+// create function here
