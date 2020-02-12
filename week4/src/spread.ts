@@ -10,9 +10,6 @@ console.log(originalNumbers);
 export const winners = ['first'];
 export const runnerUps = ['second', 'third', 'fourth', 'fifth'];
 
-export const originalContenders = runnerUps.unshift(winners[0]);
-console.log(originalContenders);
-
 // refactor here
 
 // #3 Combining objects
