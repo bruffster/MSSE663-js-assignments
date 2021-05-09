@@ -1,12 +1,13 @@
-import  express = require('express');
-var app = express();
+import express = require('express');
 
-function serve(req: any, res:any): void {
-    res.send('Hello world!!!');
+const app = express();
+
+function serve (req: any, res:any): void {
+  res.send('Hello world!!!');
 }
 
 app.use('/', serve);
 
 app.listen(8000, function () {
-    console.log('Running Server...');
+  console.log('Running Server...');
 });

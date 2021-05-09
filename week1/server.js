@@ -1,17 +1,17 @@
-var http = require('http');
+const http = require('http');
 
-function serve(req, res) {
-    var body = 'Hello World!';
+function serve (req, res) {
+  const body = 'Hello World!';
 
-    res.writeHead(200, {
-        'Content-Type': 'text/plain',
-        'Content-Type': body.length,
-    });
+  res.writeHead(200, {
+    'Content-Type': 'text/plain',
+    'Content-Type': body.length
+  });
 
-    res.end(body);
+  res.end(body);
 }
 
-var server = http.createServer(serve);
+const server = http.createServer(serve);
 
 server.listen(8000);
 

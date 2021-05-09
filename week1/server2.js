@@ -1,10 +1,10 @@
-var express = require('express');
-var app = express();
+const express = require('express');
+const app = express();
 
 app.use('/', function (req, res) {
-    res.send('Hello world!!!');
+  res.send('Hello world!!!');
 });
 
 app.listen(8000, function () {
-    console.log('Running Server...');
+  console.log('Running Server...');
 });
