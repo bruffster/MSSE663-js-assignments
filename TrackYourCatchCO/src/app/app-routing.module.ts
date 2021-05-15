@@ -18,12 +18,7 @@ export function onAuthRequired(oktaAuth: OktaAuthService, injector: Injector): v
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
-  {
-    path: 'calculator',
-    component: CalculatorComponent,
-    canActivate: [OktaAuthGuard],
-    data: { onAuthRequired }
-  },
+  { path: 'calculator', component: CalculatorComponent, canActivate: [OktaAuthGuard], data: { onAuthRequired } },
   { path: 'login', component: LoginComponent },
   { path: 'callback', component: OktaCallbackComponent },
 ];

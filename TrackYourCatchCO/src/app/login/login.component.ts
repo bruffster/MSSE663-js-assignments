@@ -4,8 +4,12 @@ import { Router, NavigationStart } from '@angular/router';
 import { OktaAuthService } from '@okta/okta-angular';
 import { Tokens } from '@okta/okta-auth-js';
 import OktaSignIn from '@okta/okta-signin-widget';
+import { AppComponent } from '../app.component';
+
 
 const DEFAULT_ORIGINAL_URI = window.location.origin;
+
+
 
 @Component({
   selector: 'app-login',
@@ -13,6 +17,8 @@ const DEFAULT_ORIGINAL_URI = window.location.origin;
     <div id="okta-signin-container"></div>`,
   styles: []
 })
+
+
 export class LoginComponent implements OnInit {
   widget = new OktaSignIn({
     baseUrl: 'https://dev-41479669.okta.com',
@@ -21,14 +27,6 @@ export class LoginComponent implements OnInit {
     registration: {
       parseSchema: function(schema: any, onSuccess: (arg0: any) => void, onFailure: any) {
          // handle parseSchema callback
-        /* schema.profileSchema.properties.address = {
-          'type': 'string',
-          'description': 'Street Address',
-          'default': 'Enter your street address',
-          'placeholder': "test",
-          'maxLength': 255
-        };
-        schema.profileSchema.fieldOrder.push('address');*/
          onSuccess(schema);
       },
       preSubmit: function (postData: any, onSuccess: (arg0: any, arg1: any) => void, onFailure: any) {
@@ -36,18 +34,18 @@ export class LoginComponent implements OnInit {
          var error = {
           "errorSummary": "Custom form level error"
         };
-        onFailure(error);
+        //onFailure(error);
         console.log(postData);
         onSuccess(postData, console.log(postData));
       },
-      postSubmit: function (response: any, onSuccess: (arg0: any) => void, onFailure: any) {
+      postSubmit: function (response: any, onSuccess: (arg0: any, arg1: any) => void, onFailure: any) {
           // handle postsubmit callback
           console.log("response " + response);
-         onSuccess(response);
+         onSuccess(response, console.log("postSubmit successful"));
          var error = {
           "errorSummary": "Custom form level error"
         };
-        onFailure(error);
+        //onFailure(error);
       }
     },
     features: {
@@ -92,4 +90,6 @@ export class LoginComponent implements OnInit {
       throw err;
     });
   }
+
+
 }
