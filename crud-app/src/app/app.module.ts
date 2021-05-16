@@ -14,7 +14,6 @@ import { AddEmployeeComponent } from './employee/add-employee/add-employee.compo
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
-import { DeleteEmployeeComponent } from './delete-employee/delete-employee.component';
 
 const appRoutes:Routes = [
   {
@@ -35,7 +34,6 @@ const appRoutes:Routes = [
     NavbarComponent,
     AddEmployeeComponent,
     EditEmployeeComponent,
-    DeleteEmployeeComponent
   ],
   imports: [
     BrowserModule,
