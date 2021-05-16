@@ -3,6 +3,34 @@
     <button mat-button routerLink="/">{{title}}</button>
     <button mat-button routerLink="/"><mat-icon>home</mat-icon></button>
   </span>
+
+  <nav class="navbar navbar-expand navbar-light bg-light">
+    <a class="navbar-brand" [routerLink]="['']">
+      <i class="fa fa-clock-o"></i>
+    </a>
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['']">
+          Home
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['profile']">
+          Profile
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['game']">
+          Game
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['leaderboard']">
+          Leaderboard
+        </a>
+      </li>
+    </ul>
+  </nav>
   <span>
     <button mat-button *ngIf="!isAuthenticated" routerLink="/login"> Login </button>
     <button mat-button *ngIf="isAuthenticated" (click)="logout()"> Logout </button>

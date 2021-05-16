@@ -13,6 +13,10 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.pokemen = ["Charizard", "Squirtle", "Bulbasaur"];
+
+    for(let i = 0; i< this.pokemen.length; i++) {
+      
+    }
   }
 
 }
