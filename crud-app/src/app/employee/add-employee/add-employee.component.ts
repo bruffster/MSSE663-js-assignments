@@ -39,7 +39,7 @@ export class AddEmployeeComponent implements OnInit {
     if(this.form.invalid) {
       return;
     }
-
+    console.log(this.form.value);
     this.employeeService.insertData(this.form.value).subscribe(res => {
       this.data = res;
       this.toastr.success(JSON.stringify(this.data.code), JSON.stringify(this.data.message),
@@ -51,3 +51,4 @@ export class AddEmployeeComponent implements OnInit {
     });
   }
 }
+
