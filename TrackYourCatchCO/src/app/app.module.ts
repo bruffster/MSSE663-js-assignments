@@ -13,7 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {  AddTripComponent } from './trip/add-trip/add-trip.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
+import { EditTripComponent } from './trip/edit-employee/edit-trip.component';
 
 import { OKTA_CONFIG, OktaAuthModule } from '@okta/okta-angular';
 import { OktaAuthOptions } from '@okta/okta-auth-js';
@@ -35,7 +35,7 @@ const appRoutes:Routes = [
     path: 'add-employee', component:AddTripComponent
   },
   {
-    path: 'edit/:id', component:EditEmployeeComponent
+    path: 'edit/:id', component:EditTripComponent
   }
 ]
 
@@ -45,7 +45,7 @@ const appRoutes:Routes = [
     TripComponent,
     NavbarComponent,
     AddTripComponent,
-    EditEmployeeComponent,
+    EditTripComponent,
     LoginComponent,
   ],
   imports: [

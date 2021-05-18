@@ -37,14 +37,14 @@ export class TripComponent implements OnInit {
     });
   }
 
-  deleteData(id:any, uid:any) {
+  deleteData(id:any) {
     this.employeeService.deleteData(id).subscribe(res => {
       this.data = res;
       this.toastr.error(JSON.stringify(this.data.code), JSON.stringify(this.data.message), {
         timeOut: 3000,
         progressBar: true
       });
-      this.getEmployeesData(uid);
+      this.getEmployeesData(this.userinfo.sub);
     });
   }
 }

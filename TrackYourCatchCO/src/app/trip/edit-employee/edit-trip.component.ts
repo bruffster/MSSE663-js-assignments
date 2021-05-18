@@ -2,16 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Employee } from '../model/employee.model';
-import { TripService } from '../service/trip.service';
+import { Employee } from '../../model/employee.model';
+import { TripService } from '../../service/trip.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-edit-employee',
-  templateUrl: './edit-employee.component.html',
-  styleUrls: ['./edit-employee.component.css']
+  selector: 'app-edit-trip',
+  templateUrl: './edit-trip.component.html',
+  styleUrls: ['./edit-trip.component.css']
 })
-export class EditEmployeeComponent implements OnInit {
+export class EditTripComponent implements OnInit {
   employee = new Employee();
   id:any;
   data:any;
