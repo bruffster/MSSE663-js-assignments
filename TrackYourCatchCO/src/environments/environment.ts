@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  hangmanServer: 'http://localhost:8080',
+  apiUrl: 'http://localhost:3000/api'
 };
 
 /*

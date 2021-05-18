@@ -1,39 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { OktaAuthService } from '@okta/okta-angular';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
-  title = 'AngularCalculator';
-  isAuthenticated = false;
+export class AppComponent {
+  title = 'crud-app';
 
-  constructor(public oktaAuth: OktaAuthService) {
-    // subscribe to authentication state changes
-    this.oktaAuth.$authenticationState.subscribe(
-      (isAuthenticated: boolean) => this.isAuthenticated = isAuthenticated
-    );
+  constructor() {
   }
 
   async ngOnInit(): Promise<void> {
-    // get authentication state for immediate use
-    this.isAuthenticated = await this.oktaAuth.isAuthenticated();
-  }
-
-  async logout(): Promise<void> {
-    await this.oktaAuth.signOut();
-  }
-
-  async getInfo(): Promise<void> {
-    //const accessToken = await this.oktaAuth.getAccessToken();
-    if(this.isAuthenticated) {
-      const userinfo = await this.oktaAuth.getUser();
-      console.log(userinfo.sub);
-    }
-    else {
-      console.log("user not authenticated!");
-    }
   }
 }

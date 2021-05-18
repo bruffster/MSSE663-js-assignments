@@ -1,43 +1,12 @@
-<mat-toolbar color="primary" class="expanded-toolbar">
-  <span>
-    <button mat-button routerLink="/">{{title}}</button>
-    <button mat-button routerLink="/"><mat-icon>home</mat-icon></button>
-  </span>
+<app-navbar></app-navbar>
 
-  <nav class="navbar navbar-expand navbar-light bg-light">
-    <a class="navbar-brand" [routerLink]="['']">
-      <i class="fa fa-clock-o"></i>
-    </a>
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['']">
-          Home
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['profile']">
-          Profile
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['game']">
-          Game
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['leaderboard']">
-          Leaderboard
-        </a>
-      </li>
-    </ul>
-  </nav>
-  <span>
-    <button mat-button *ngIf="!isAuthenticated" routerLink="/login"> Login </button>
-    <button mat-button *ngIf="isAuthenticated" (click)="logout()"> Logout </button>
-  </span>
-  <button mat-button routerLink="/calculator"><mat-icon>dialpad</mat-icon></button>
-</mat-toolbar>
-
-<button mat-button (click)="getInfo()"> do stuff</button>
-
-<router-outlet></router-outlet>
+<div class="container">
+  <hr>
+  <div class="row">
+    <div class="col mt-4 mb">
+      <div class="col-md-8 mx-auto">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

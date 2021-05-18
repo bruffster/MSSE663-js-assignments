@@ -1,31 +1,25 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-
+import { BrowserModule } from '@angular/platform-browser';
+import { ToastrModule } from 'ngx-toastr'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatIconModule } from '@angular/material/icon';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatTableModule } from '@angular/material/table';
-import { MatDividerModule } from '@angular/material/divider';
-import { HomeComponent } from './home/home.component';
-import { CalculatorComponent } from './calculator/calculator.component';
-import { LoginComponent } from './login/login.component';
+import { TripComponent } from './trip/trip/trip.component';
+import { NavbarComponent } from './navbar/navbar/navbar.component';
+
+import { HttpClientModule } from '@angular/common/http';
+import {  AddTripComponent } from './trip/add-trip/add-trip.component';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
 
 import { OKTA_CONFIG, OktaAuthModule } from '@okta/okta-angular';
 import { OktaAuthOptions } from '@okta/okta-auth-js';
+import { LoginComponent } from './login/login.component';
 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ProfileComponent } from './profile/profile.component';
-import { GameComponent } from './game/game.component';
-import { LeaderboardComponent } from './leaderboard/leaderboard.component';
-
+import {Injector} from '@angular/core';
 const oktaConfig: OktaAuthOptions = {
   issuer: 'https://dev-41479669.okta.com/oauth2/default',
   clientId: '0oapny2dw50GFpPsl5d6',
@@ -33,36 +27,44 @@ const oktaConfig: OktaAuthOptions = {
 };
 
 
+const appRoutes:Routes = [
+  {
+    path: '', component:TripComponent
+  },
+  {
+    path: 'add-employee', component:AddTripComponent
+  },
+  {
+    path: 'edit/:id', component:EditEmployeeComponent
+  }
+]
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    CalculatorComponent,
+    TripComponent,
+    NavbarComponent,
+    AddTripComponent,
+    EditEmployeeComponent,
     LoginComponent,
-    ProfileComponent,
-    GameComponent,
-    LeaderboardComponent,
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    FlexLayoutModule,
-    MatToolbarModule,
-    MatMenuModule,
-    MatIconModule,
-    MatCardModule,
-    MatButtonModule,
-    MatTableModule,
-    MatDividerModule,
     AppRoutingModule,
-    OktaAuthModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule,
+    RouterModule.forRoot(appRoutes),
+    OktaAuthModule,
   ],
   providers: [{ provide: OKTA_CONFIG, useValue: oktaConfig }],
   bootstrap: [AppComponent]
 })
+export class AppModule {   constructor(private injector: Injector) 
+  {
+    InjectorInstance = this.injector;
+  }}
+export let InjectorInstance: Injector;
 
-export class AppModule { }

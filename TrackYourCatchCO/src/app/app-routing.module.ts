@@ -1,49 +1,33 @@
-
 import { Injector, NgModule } from '@angular/core';
-import { Routes, RouterModule, Router } from '@angular/router';
-
-import { HomeComponent } from './home/home.component';
-import { CalculatorComponent } from './calculator/calculator.component';
-
+import { Router, RouterModule, Routes } from '@angular/router';
+import { OktaCallbackComponent, OktaAuthGuard, OktaAuthService } from '@okta/okta-angular';
+import { AddTripComponent } from './trip/add-trip/add-trip.component';
+import { TripComponent } from './trip/trip/trip.component';
 import { LoginComponent } from './login/login.component';
-
-
-import { OktaAuthGuard, OktaAuthService, OktaCallbackComponent } from '@okta/okta-angular';
-import { ProfileComponent } from './profile/profile.component';
-import { GameComponent } from './game/game.component';
-import { LeaderboardComponent } from './leaderboard/leaderboard.component';
-
-export function onAuthRequired(oktaAuth: OktaAuthService, injector: Injector): void {
-  const router = injector.get(Router);
-  router.navigate(['/login']);
-}
+import { Employee } from './model/employee.model';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'calculator', component: CalculatorComponent, canActivate: [OktaAuthGuard], data: { onAuthRequired } },
+  { path: '', component:TripComponent, canActivate: [OktaAuthGuard], data: { onAuthRequired } },
+  { path: '#', component:TripComponent, canActivate: [OktaAuthGuard], data: { onAuthRequired } },
+  { path: 'home', component: TripComponent, canActivate: [OktaAuthGuard], data: { onAuthRequired } },
+  { path: 'add-employee', component: AddTripComponent, canActivate: [OktaAuthGuard], data: { onAuthRequired } },
   { path: 'login', component: LoginComponent },
   { path: 'callback', component: OktaCallbackComponent },
-  {
-    path: 'profile',
-    component: ProfileComponent
-  },
-  {
-    path: 'game',
-    component: GameComponent
-  },
-  {
-    path: 'leaderboard',
-    component: LeaderboardComponent
-  },
   {
     path: 'implicit/callback',
     component: OktaCallbackComponent
   }
 ];
 
+export function onAuthRequired(oktaAuth: OktaAuthService, injector: Injector): void {
+  const router = injector.get(Router);
+  router.navigate(['/login']);
+}
+
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
+
 export class AppRoutingModule { }
