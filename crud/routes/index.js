@@ -7,8 +7,9 @@ const { Employee, Employee2, OktaUser } = require ('../models/employee');
 
 
 // Get All Employees
-router.get('/api/employees', (req, res) => {
-  Employee.find({}, (err, data) => {
+router.get('/api/:uid/employees', (req, res) => {
+  Employee.find({ _uid: req.params.uid }, (err, data) => {
+    //Employee.find({ }, (err, data) => {
     if(!err) {
       res.send(data);
     } else {
@@ -23,6 +24,7 @@ router.post('/api/employee/add', (req, res) => {
     name: req.body.name,
     email: req.body.email,
     salary: req.body.salary,
+    _uid: req.body._uid,
   });
   emp.save((err, data) => {
     res.status(200).json({ code: 200, message: 'Employee Added Successfully', addEmployee: data});

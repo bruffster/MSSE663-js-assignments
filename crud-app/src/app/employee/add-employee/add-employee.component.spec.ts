@@ -23,3 +23,4 @@ describe('AddEmployeeComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

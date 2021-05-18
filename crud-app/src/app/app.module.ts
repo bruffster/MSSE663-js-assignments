@@ -10,7 +10,7 @@ import { EmployeeComponent } from './employee/employee/employee.component';
 import { NavbarComponent } from './navbar/navbar/navbar.component';
 
 import { HttpClientModule } from '@angular/common/http';
-import { AddEmployeeComponent } from './employee/add-employee/add-employee.component';
+import {  AddEmployeeComponent } from './employee/add-employee/add-employee.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditEmployeeComponent } from './edit-employee/edit-employee.component';

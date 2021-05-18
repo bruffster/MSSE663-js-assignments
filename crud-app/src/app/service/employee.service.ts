@@ -8,8 +8,8 @@ import { InjectorInstance } from '../app.module';
 })
 export class EmployeeService {
   constructor(private httpClient: HttpClient) { }
-  getData() {
-    return this.httpClient.get(environment.apiUrl + '/employees');
+  getData(uid:any) {
+    return this.httpClient.get(environment.apiUrl + '/' + uid + '/employees');
   }
 
   insertData(data: any) {

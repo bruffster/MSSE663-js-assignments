@@ -4,6 +4,7 @@ import { EmployeeService } from 'src/app/service/employee.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { OktaAuthService } from '@okta/okta-angular';
 
 @Component({
   selector: 'app-add-employee',
@@ -15,9 +16,11 @@ export class AddEmployeeComponent implements OnInit {
   form!: FormGroup;
   submitted=false;
   data:any;
-  constructor(private employeeService:EmployeeService, private formBuilder: FormBuilder, private toastr: ToastrService, private router: Router) { }
+  userinfo:any
+  uid:any
+  constructor(private employeeService:EmployeeService, private formBuilder: FormBuilder, private toastr: ToastrService, private router: Router, private oktaAuth:OktaAuthService) { }
 
-  createForm() {
+  async createForm() {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -25,7 +28,7 @@ export class AddEmployeeComponent implements OnInit {
     });
   }
   
-  ngOnInit(): void {
+  ngOnInit(){
     this.createForm();
   }
 
@@ -33,14 +36,21 @@ export class AddEmployeeComponent implements OnInit {
     return this.form.controls;
   }
 
-  insertData() {
+  async insertData() {
     this.submitted = true;
-
+    await this.getInfo(()=> {
+      console.log('callback');
+    })
     if(this.form.invalid) {
       return;
     }
     console.log(this.form.value);
+    let newNum = "_uid";
+    this.form.value[newNum] = this.uid;
+    console.log(this.form.value);
     this.employeeService.insertData(this.form.value).subscribe(res => {
+      console.log('json check');
+      console.log(this.form.value);
       this.data = res;
       this.toastr.success(JSON.stringify(this.data.code), JSON.stringify(this.data.message),
       {
@@ -49,6 +59,17 @@ export class AddEmployeeComponent implements OnInit {
       });
       this.router.navigateByUrl('/');
     });
+  }
+
+  async getInfo(_callback:any): Promise<void> {
+    //const accessToken = await this.oktaAuth.getAccessToken();
+      const userinfo = await this.oktaAuth.getUser();
+      console.log(userinfo.sub);
+      this.userinfo = userinfo;
+      this.uid = userinfo.sub;
+      console.log(this.uid);
+      _callback(this.uid = userinfo.sub);
+      this.uid = userinfo.sub
   }
 }
 

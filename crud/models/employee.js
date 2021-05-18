@@ -13,6 +13,10 @@ const Employee = mongoose.model('Employee', {
   salary: {
     type: String,
     required: true
+  },
+  _uid: {
+    type: String,
+    required: true
   }
 });
 
