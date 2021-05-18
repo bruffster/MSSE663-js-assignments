@@ -48,4 +48,23 @@ const OktaUser = mongoose.model('oktausers', {
   }
 });
 
-module.exports = { Employee, Employee2, OktaUser }
+const Trip = mongoose.model('trips', {
+  tripName: {
+    type: String,
+    required: true
+  },
+  location: {
+    type: String,
+    required: true
+  },
+  date: {
+    type: Date,
+    required: true
+  },
+  _uid: {
+    type: String,
+    required: true
+  }
+});
+
+module.exports = { Employee, Employee2, OktaUser, Trip }

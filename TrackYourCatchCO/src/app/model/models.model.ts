@@ -17,3 +17,10 @@ export class OktaUser {
   email:any;
   uid:any;
 }
+
+export class Trip {
+  _id:any;
+  tripName:any;
+  location:any;
+  date:any;
+}

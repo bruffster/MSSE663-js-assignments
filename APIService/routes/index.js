@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 
-const { Employee, Employee2, OktaUser } = require ('../models/employee');
+const { Employee, Employee2, OktaUser, Trip } = require ('../models/model');
 
 
 
@@ -10,6 +10,17 @@ const { Employee, Employee2, OktaUser } = require ('../models/employee');
 router.get('/api/:uid/employees', (req, res) => {
   Employee.find({ _uid: req.params.uid }, (err, data) => {
     //Employee.find({ }, (err, data) => {
+    if(!err) {
+      res.send(data);
+    } else {
+      console.log(err);
+    }
+  });
+});
+
+// Get All Trips for User
+router.get('/api/:uid/trips', (req, res) => {
+  Trip.find({ _uid: req.params.uid }, (err, data) => {
     if(!err) {
       res.send(data);
     } else {
@@ -31,6 +42,22 @@ router.post('/api/employee/add', (req, res) => {
   });
 });
 
+// Save Trip
+router.post('/api/trip/add', (req, res) => {
+  const trip = new Trip({
+    tripName: req.body.tripName,
+    location: req.body.location,
+    date: req.body.date,
+    _uid: req.body._uid,
+  });
+
+  trip.save((err, data) => {
+    res.status(200).json({ code: 200, message: 'Trip Added Successfully', addTrip: data});
+    console.log('body');
+    console.log(trip);
+  });
+});
+
 // Save Okta User Info
 router.post('/api/employee/addOktaUser', (req, res) => {
   const oktaU = new OktaUser({
@@ -43,8 +70,8 @@ router.post('/api/employee/addOktaUser', (req, res) => {
 });
 
 // Get Single Employee
-router.get('/api/employee/:id', (req, res) => {
-  Employee.findById(req.params.id, (err, data) => {
+router.get('/api/trip/:id', (req, res) => {
+  Trip.findById(req.params.id, (err, data) => {
     if(!err) {
       res.send(data);
     } else {
@@ -83,10 +110,10 @@ router.put('/api/employee/edit/:id', (req, res) => {
 
 // Delete Employee
 
-router.delete('/api/employee/:id', (req, res) => {
-  Employee.findByIdAndRemove(req.params.id, (err, data) => {
+router.delete('/api/trip/:id', (req, res) => {
+  Trip.findByIdAndRemove(req.params.id, (err, data) => {
     if(!err) {
-      res.status(200).json({ code: 200, message: 'Employee Deleted Successfully', deleteEmployee: data});
+      res.status(200).json({ code: 200, message: 'Trip Deleted Successfully', deleteEmployee: data});
     } else {
       console.log(err);
     }

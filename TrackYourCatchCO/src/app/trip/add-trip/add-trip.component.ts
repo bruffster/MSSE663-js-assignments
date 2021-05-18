@@ -22,9 +22,9 @@ export class AddTripComponent implements OnInit {
 
   async createForm() {
     this.form = this.formBuilder.group({
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      salary: ['', Validators.required],
+      tripName: ['', Validators.required],
+      location: ['', Validators.required],
+      date: ['', Validators.required],
     });
   }
   
@@ -47,6 +47,8 @@ export class AddTripComponent implements OnInit {
     console.log(this.form.value);
     let newNum = "_uid";
     this.form.value[newNum] = this.uid;
+    this.form.value.date = this.form.value.date.split('T')[0];
+    console.log(this.form.value.date);
     console.log(this.form.value);
     this.employeeService.insertData(this.form.value).subscribe(res => {
       console.log('json check');

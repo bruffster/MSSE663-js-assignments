@@ -4,13 +4,13 @@ import { OktaCallbackComponent, OktaAuthGuard, OktaAuthService } from '@okta/okt
 import { AddTripComponent } from './trip/add-trip/add-trip.component';
 import { TripComponent } from './trip/trip/trip.component';
 import { LoginComponent } from './login/login.component';
-import { Employee } from './model/employee.model';
+import { Employee } from './model/models.model';
 
 const routes: Routes = [
   { path: '', component:TripComponent, canActivate: [OktaAuthGuard], data: { onAuthRequired } },
   { path: '#', component:TripComponent, canActivate: [OktaAuthGuard], data: { onAuthRequired } },
   { path: 'home', component: TripComponent, canActivate: [OktaAuthGuard], data: { onAuthRequired } },
-  { path: 'add-employee', component: AddTripComponent, canActivate: [OktaAuthGuard], data: { onAuthRequired } },
+  { path: 'add-trip', component: AddTripComponent, canActivate: [OktaAuthGuard], data: { onAuthRequired } },
   { path: 'login', component: LoginComponent },
   { path: 'callback', component: OktaCallbackComponent },
   {

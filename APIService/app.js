@@ -9,19 +9,6 @@ app.use(cors());
 
 const dotenv = require('dotenv');
 
-
-
-
-/*
-app.get('/', (req, res) => {
-  res.send('Hello world!');
-});
-
-app.get('/employees', (req, res) => {
-  res.send('Employees');
-});
-*/
-
 const connectDB = require('./config/db')
 
 // Load Config

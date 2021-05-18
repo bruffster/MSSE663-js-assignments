@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Employee } from '../../model/employee.model';
+import { Employee, Trip} from '../../model/models.model';
 import { TripService } from '../../service/trip.service';
 import { Router } from '@angular/router';
 
@@ -12,16 +12,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./edit-trip.component.css']
 })
 export class EditTripComponent implements OnInit {
-  employee = new Employee();
+  employee = new Trip();
   id:any;
   data:any;
   submitted=false;
   constructor(private employeeService:TripService, private route: ActivatedRoute, private toastr:ToastrService, private router: Router) { }
 
   form = new FormGroup({
-    name: new FormControl('', Validators.required),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    salary: new FormControl('', Validators.required)
+    tripName: new FormControl('', Validators.required),
+    location: new FormControl('', [Validators.required]),
+    date: new FormControl('', [Validators.required])
   });
 
   ngOnInit(): void {
@@ -38,9 +38,9 @@ export class EditTripComponent implements OnInit {
       this.data = res;
       this.employee = this.data;
       this.form = new FormGroup({
-        name: new FormControl(this.employee.name, Validators.required),
-        email: new FormControl(this.employee.email, [Validators.required, Validators.email]),
-        salary: new FormControl(this.employee.salary, Validators.required)
+        tripName: new FormControl(this.employee.tripName, Validators.required),
+        location: new FormControl(this.employee.location, [Validators.required]),
+        date: new FormControl(this.employee.date, Validators.required)
       });
     });
   }
@@ -61,3 +61,4 @@ export class EditTripComponent implements OnInit {
     });
   }
 }
+ 

@@ -4,7 +4,7 @@ import { Router, NavigationStart } from '@angular/router';
 import { OktaAuthService } from '@okta/okta-angular';
 import { Tokens } from '@okta/okta-auth-js';
 import OktaSignIn from '@okta/okta-signin-widget';
-import { OktaUser } from '../model/employee.model';
+import { OktaUser } from '../model/models.model';
 import { TripService } from '../service/trip.service';
 
 const DEFAULT_ORIGINAL_URI = window.location.origin;
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
       if (event instanceof NavigationStart) {
         switch (event.url) {
           case '/login':
-          case '/add-employee':
+          case '/add-trip':
           case '':
           case '/':
           case '/home':
