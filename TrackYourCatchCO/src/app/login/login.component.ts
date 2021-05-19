@@ -20,8 +20,8 @@ const DEFAULT_ORIGINAL_URI = window.location.origin;
 export class LoginComponent implements OnInit {
   data:any;
   user:any;
-  oktaUser1 = new OktaUser();
-  constructor(private oktaAuth: OktaAuthService, router: Router, private employeeService:TripService) {
+  oktaUser = new OktaUser();
+  constructor(private oktaAuth: OktaAuthService, router: Router, private tripService:TripService) {
     // Show the widget when prompted, otherwise remove it from the DOM.
     router.events.forEach(event => {
       if (event instanceof NavigationStart) {
@@ -46,24 +46,16 @@ export class LoginComponent implements OnInit {
     redirectUri: 'http://localhost:4200/callback',
     registration: {
       parseSchema: function(schema: any, onSuccess: (arg0: any) => void, onFailure: any) {
-         // handle parseSchema callback
-         onSuccess(schema);
+        // handle parseSchema callback
+        onSuccess(schema);
       },
       preSubmit: function (postData: any, onSuccess: (arg0: any) => void, onFailure: any) {
-         // handle preSubmit callback
-         var error = {
-          "errorSummary": "Custom form level error"
-        };
-        //onFailure(error);
+        // handle preSubmit callback
         onSuccess(postData,);
       },
       postSubmit: function (response: any, onSuccess: (arg0: any) => void, onFailure: any) {
-          // handle postsubmit callback
-         onSuccess(response);
-         var error = {
-          "errorSummary": "Custom form level error"
-        };
-        //onFailure(error);
+        // handle postsubmit callback
+        onSuccess(response);
       }
     },
     features: {
@@ -90,22 +82,22 @@ export class LoginComponent implements OnInit {
 
       // In this flow the redirect to Okta occurs in a hidden iframe
       await this.oktaAuth.handleLoginRedirect(tokens);
-      let newData = {'email': (await this.oktaAuth.getUser()).email, 'uid':(await this.oktaAuth.getUser()).sub};
+      let userData = {'email': (await this.oktaAuth.getUser()).email, 'uid':(await this.oktaAuth.getUser()).sub};
 
 
-      await this.employeeService.getOktaUser(newData.uid).subscribe(res => {
+      await this.tripService.getOktaUser(userData.uid).subscribe(res => {
         this.user = res;
-        this.oktaUser1 = this.user;
-        if (!this.oktaUser1) {
+        this.oktaUser = this.user;
+        if (!this.oktaUser) {
           console.log("user not found, adding new user");
-          this.employeeService.insertOktaUser(newData).subscribe(res => {
+          this.tripService.insertOktaUser(userData).subscribe(res => {
             this.data = res;
           });
         } else {
           console.log("user found, bypassing user add");
-          console.log(this.oktaUser1);
+          console.log(this.oktaUser);
         }
-
+        let userId = JSON.parse(localStorage.getItem('okta-token-storage') || '{}').idToken.claims.sub;
       });
 
     }).catch((err: any) => {
@@ -115,3 +107,4 @@ export class LoginComponent implements OnInit {
 
   }
 }
+ 

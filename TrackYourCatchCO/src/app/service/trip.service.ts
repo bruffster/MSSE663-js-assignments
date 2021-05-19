@@ -8,6 +8,7 @@ import { InjectorInstance } from '../app.module';
 })
 export class TripService {
   constructor(private httpClient: HttpClient) { }
+  
   getData(uid:any) {
     console.log("UID in api call: " + uid);
     return this.httpClient.get(environment.apiUrl + '/' + uid + '/trips');
@@ -18,7 +19,7 @@ export class TripService {
   }
 
   insertOktaUser(data: any) {
-    return this.httpClient.post(environment.apiUrl + '/employee/addOktaUser', data);
+    return this.httpClient.post(environment.apiUrl + '/addOktaUser', data);
   }
 
   getOktaUser(uid: any) {
@@ -30,7 +31,7 @@ export class TripService {
   }
 
   updateData(id:any, data:any) {
-    return this.httpClient.put(environment.apiUrl + '/employee/edit/'+id, data);
+    return this.httpClient.put(environment.apiUrl + '/trip/edit/'+id, data);
   }
 
   deleteData(id:any) {

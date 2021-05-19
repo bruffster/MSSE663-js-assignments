@@ -2,21 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 
-const { Employee, Employee2, OktaUser, Trip } = require ('../models/model');
+const { OktaUser, Trip } = require ('../models/model');
 
-
-
-// Get All Employees
-router.get('/api/:uid/employees', (req, res) => {
-  Employee.find({ _uid: req.params.uid }, (err, data) => {
-    //Employee.find({ }, (err, data) => {
-    if(!err) {
-      res.send(data);
-    } else {
-      console.log(err);
-    }
-  });
-});
 
 // Get All Trips for User
 router.get('/api/:uid/trips', (req, res) => {
@@ -26,19 +13,6 @@ router.get('/api/:uid/trips', (req, res) => {
     } else {
       console.log(err);
     }
-  });
-});
-
-// Save Employee
-router.post('/api/employee/add', (req, res) => {
-  const emp = new Employee({
-    name: req.body.name,
-    email: req.body.email,
-    salary: req.body.salary,
-    _uid: req.body._uid,
-  });
-  emp.save((err, data) => {
-    res.status(200).json({ code: 200, message: 'Employee Added Successfully', addEmployee: data});
   });
 });
 
@@ -59,17 +33,17 @@ router.post('/api/trip/add', (req, res) => {
 });
 
 // Save Okta User Info
-router.post('/api/employee/addOktaUser', (req, res) => {
+router.post('/api/addOktaUser', (req, res) => {
   const oktaU = new OktaUser({
     email: req.body.email,
     uid: req.body.uid
   });
   oktaU.save((err, data) => {
-    res.status(200).json({ code: 200, message: 'Okta User Added Successfully', addOktaEmployee: data});
+    res.status(200).json({ code: 200, message: 'Okta User Added Successfully', addOktaUser: data});
   });
 });
 
-// Get Single Employee
+// Get Single Trip
 router.get('/api/trip/:id', (req, res) => {
   Trip.findById(req.params.id, (err, data) => {
     if(!err) {
@@ -92,28 +66,27 @@ router.get('/api/okta/:uid', (req, res) => {
   })
 });
 
-// Update Employee
-router.put('/api/employee/edit/:id', (req, res) => {
-  const emp = {
-    name: req.body.name,
-    email: req.body.email,
-    salary: req.body.salary
+// Update Trip
+router.put('/api/trip/edit/:id', (req, res) => {
+  const trip = {
+    tripName: req.body.tripName,
+    location: req.body.location,
+    date: req.body.date
   };
-  Employee.findByIdAndUpdate(req.params.id, { $set:emp }, { new:true }, (err, data) => {
+  Trip.findByIdAndUpdate(req.params.id, { $set:trip }, { new:true }, (err, data) => {
     if(!err) {
-      res.status(200).json({ code: 200, message: 'Employee Updated Successfully', updateEmployee: data });
+      res.status(200).json({ code: 200, message: 'Trip Updated Successfully', updateTrip: data });
     } else {
       console.log(err);
     }
   });
 });
 
-// Delete Employee
-
+// Delete trip
 router.delete('/api/trip/:id', (req, res) => {
   Trip.findByIdAndRemove(req.params.id, (err, data) => {
     if(!err) {
-      res.status(200).json({ code: 200, message: 'Trip Deleted Successfully', deleteEmployee: data});
+      res.status(200).json({ code: 200, message: 'Trip Deleted Successfully', deleteTrip: data});
     } else {
       console.log(err);
     }

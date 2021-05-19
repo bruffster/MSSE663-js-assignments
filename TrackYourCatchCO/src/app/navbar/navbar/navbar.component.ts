@@ -25,6 +25,11 @@ export class NavbarComponent implements OnInit{
     await this.oktaAuth.signOut();
   }
 
+  removeUID(){
+    localStorage.removeItem('uid');
+    console.log('removing uid from local storage');
+  }
+
   async getInfo(): Promise<void> {
     //const accessToken = await this.oktaAuth.getAccessToken();
     if(this.isAuthenticated) {

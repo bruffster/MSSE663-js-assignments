@@ -10,41 +10,32 @@ import { NumberFormatStyle } from '@angular/common';
   styleUrls: ['./trip.component.css']
 })
 export class TripComponent implements OnInit {
-  employees:any;
+  trips:any;
   data:any;
   userinfo:any;
-  constructor(private employeeService:TripService, private toastr:ToastrService, private oktaAuth: OktaAuthService) { 
+  constructor(private tripService:TripService, private toastr:ToastrService, private oktaAuth: OktaAuthService) { 
   }
 
   async ngOnInit(): Promise<void> {
-    await this.getInfo();
-    this.getEmployeesData(this.userinfo.sub);
+    //await this.getInfo();
+    this.getTripsData(JSON.parse(localStorage.getItem('okta-token-storage') || '{}').idToken.claims.sub);
   }
 
-  async getInfo(): Promise<void> {
-    //const accessToken = await this.oktaAuth.getAccessToken();
-      const userinfo = await this.oktaAuth.getUser();
-      console.log(userinfo.sub);
-      this.userinfo = userinfo;
-
-  }
-
-  getEmployeesData(uid:any) {
-    console.log("uid:" + uid);
-    this.employeeService.getData(uid).subscribe(res => {
+  getTripsData(uid:any) {
+    this.tripService.getData(uid).subscribe(res => {
       console.log(res);
-      this.employees = res;
+      this.trips = res;
     });
   }
 
   deleteData(id:any) {
-    this.employeeService.deleteData(id).subscribe(res => {
+    this.tripService.deleteData(id).subscribe(res => {
       this.data = res;
       this.toastr.error(JSON.stringify(this.data.code), JSON.stringify(this.data.message), {
         timeOut: 3000,
         progressBar: true
       });
-      this.getEmployeesData(this.userinfo.sub);
+      this.getTripsData(JSON.parse(localStorage.getItem('okta-token-storage') || '{}').idToken.claims.sub);
     });
   }
 }

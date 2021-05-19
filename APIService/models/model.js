@@ -1,42 +1,7 @@
 const mongoose = require('mongoose');
 
-// Employee Schema
-const Employee = mongoose.model('Employee', {
-  name: {
-    type: String,
-    required: true
-  },
-  email: {
-    type: String,
-    required: true
-  },
-  salary: {
-    type: String,
-    required: true
-  },
-  _uid: {
-    type: String,
-    required: true
-  }
-});
 
-// Employee Schema v2
-const Employee2 = mongoose.model('Employee2', {
-  firstName: {
-    type: String,
-    required: true
-  },
-  lastName: {
-    type: String,
-    required: true
-  },
-  email: {
-    type: String,
-    required: true
-  }
-});
-
-// Employee Schema v2
+// Okta User Schema
 const OktaUser = mongoose.model('oktausers', {
   email: {
     type: String,
@@ -48,6 +13,7 @@ const OktaUser = mongoose.model('oktausers', {
   }
 });
 
+// Trip Schema
 const Trip = mongoose.model('trips', {
   tripName: {
     type: String,
@@ -67,4 +33,4 @@ const Trip = mongoose.model('trips', {
   }
 });
 
-module.exports = { Employee, Employee2, OktaUser, Trip }
+module.exports = { OktaUser, Trip }

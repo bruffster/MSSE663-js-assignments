@@ -10,14 +10,15 @@
   </thead>
 
   <tbody>
-    <tr *ngFor="let emp of employees; let i = index">
+    <tr *ngFor="let trip of trips; let i = index">
       <td>{{i + 1}}</td>
-      <td>{{emp.tripName}}</td>
-      <td>{{emp.location}}</td>
-      <td>{{emp.date}}</td>
+      <td>{{trip.tripName}}</td>
+      <td>{{trip.location}}</td>
+      <td>{{trip.date}}</td>
       <td>
-        <button class="btn btn-primary btn-sm mx-auto" routerLink="edit/{{emp._id}}">Edit</button>
-        <button class="btn btn-danger btn-sm mx-auto" (click)="deleteData(emp._id)" >Delete</button>
+        <button class="btn btn-success btn-sm mx-auto" routerLink="trip/{{trip._id}}/catches">View</button>
+        <button class="btn btn-primary btn-sm mx-auto" routerLink="edit/{{trip._id}}">Edit</button>
+        <button class="btn btn-danger btn-sm mx-auto" (click)="deleteData(trip._id)" >Delete</button>
       </td>
     </tr>
   </tbody>

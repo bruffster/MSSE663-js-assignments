@@ -20,6 +20,9 @@ import { OktaAuthOptions } from '@okta/okta-auth-js';
 import { LoginComponent } from './login/login.component';
 
 import {Injector} from '@angular/core';
+import { CatchComponent } from './catch/catch/catch.component';
+import { AddCatchComponent } from './catch/add-catch/add-catch.component';
+import { EditCatchComponent } from './catch/edit-catch/edit-catch.component';
 const oktaConfig: OktaAuthOptions = {
   issuer: 'https://dev-41479669.okta.com/oauth2/default',
   clientId: '0oapny2dw50GFpPsl5d6',
@@ -36,6 +39,9 @@ const appRoutes:Routes = [
   },
   {
     path: 'edit/:id', component:EditTripComponent
+  },
+  {
+    path: 'trip/:id/catches', component:CatchComponent
   }
 ]
 
@@ -47,6 +53,9 @@ const appRoutes:Routes = [
     AddTripComponent,
     EditTripComponent,
     LoginComponent,
+    CatchComponent,
+    AddCatchComponent,
+    EditCatchComponent,
   ],
   imports: [
     BrowserModule,

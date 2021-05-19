@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Employee, Trip} from '../../model/models.model';
+import { Trip } from '../../model/models.model';
 import { TripService } from '../../service/trip.service';
 import { Router } from '@angular/router';
 
@@ -12,11 +12,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./edit-trip.component.css']
 })
 export class EditTripComponent implements OnInit {
-  employee = new Trip();
+  trip = new Trip();
   id:any;
   data:any;
   submitted=false;
-  constructor(private employeeService:TripService, private route: ActivatedRoute, private toastr:ToastrService, private router: Router) { }
+  constructor(private tripService:TripService, private route: ActivatedRoute, private toastr:ToastrService, private router: Router) { }
 
   form = new FormGroup({
     tripName: new FormControl('', Validators.required),
@@ -34,13 +34,13 @@ export class EditTripComponent implements OnInit {
   }
 
   getData() {
-    this.employeeService.getDataById(this.id).subscribe(res => {
+    this.tripService.getDataById(this.id).subscribe(res => {
       this.data = res;
-      this.employee = this.data;
+      this.trip = this.data;
       this.form = new FormGroup({
-        tripName: new FormControl(this.employee.tripName, Validators.required),
-        location: new FormControl(this.employee.location, [Validators.required]),
-        date: new FormControl(this.employee.date, Validators.required)
+        tripName: new FormControl(this.trip.tripName, Validators.required),
+        location: new FormControl(this.trip.location, [Validators.required]),
+        date: new FormControl(this.trip.date, Validators.required)
       });
     });
   }
@@ -51,12 +51,15 @@ export class EditTripComponent implements OnInit {
     if(this.form.invalid) {
       return;
     }
-    this.employeeService.updateData(this.id, this.form.value).subscribe(res => {
+
+    this.tripService.updateData(this.id, this.form.value).subscribe(res => {
       this.data = res;
+      
       this.toastr.success(JSON.stringify(this.data.code), JSON.stringify(this.data.message), {
         timeOut: 3000,
         progressBar: true,
       });
+
       this.router.navigateByUrl('/');
     });
   }
