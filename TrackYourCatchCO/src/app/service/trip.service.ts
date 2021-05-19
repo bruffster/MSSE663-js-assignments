@@ -14,6 +14,11 @@ export class TripService {
     return this.httpClient.get(environment.apiUrl + '/' + uid + '/trips');
   }
 
+  getCatches(uid:any, tripId:any) {
+    console.log("UID in api call: " + uid);
+    return this.httpClient.get(environment.apiUrl + '/' + uid + '/trips/' + tripId + '/catches');
+  }
+
   insertData(data: any) {
     return this.httpClient.post(environment.apiUrl + '/trip/add', data);
   }
@@ -36,5 +41,10 @@ export class TripService {
 
   deleteData(id:any) {
     return this.httpClient.delete(environment.apiUrl + '/trip/' +id);
+  }
+
+  deleteCatch(uid:any, tripId:any, id:any) {
+    console.log('uid: ' + uid + ' tripId: ' + tripId + ' id: ' + id);
+    return this.httpClient.delete(environment.apiUrl + '/' + uid + '/trips/' + tripId +'/catches/' + id);
   }
 }

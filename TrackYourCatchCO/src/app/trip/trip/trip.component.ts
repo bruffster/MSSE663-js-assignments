@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TripService } from 'src/app/service/trip.service';
 import { ToastrService } from 'ngx-toastr';
-import { OktaAuthService } from '@okta/okta-angular';
-import { NumberFormatStyle } from '@angular/common';
 
 @Component({
   selector: 'app-trip',
@@ -12,12 +10,11 @@ import { NumberFormatStyle } from '@angular/common';
 export class TripComponent implements OnInit {
   trips:any;
   data:any;
-  userinfo:any;
-  constructor(private tripService:TripService, private toastr:ToastrService, private oktaAuth: OktaAuthService) { 
+  
+  constructor(private tripService:TripService, private toastr:ToastrService) { 
   }
 
   async ngOnInit(): Promise<void> {
-    //await this.getInfo();
     this.getTripsData(JSON.parse(localStorage.getItem('okta-token-storage') || '{}').idToken.claims.sub);
   }
 

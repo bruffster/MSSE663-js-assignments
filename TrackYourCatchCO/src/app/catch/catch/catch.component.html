@@ -1,1 +1,45 @@
-<p>catch works!</p>
+<div class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Species</th>
+      <th scope="col">Weight (lb)</th>
+      <th scope="col">Length (in)</th>
+      <th scope="col">Location</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let catch of catches; let i = index">
+      <td>{{i + 1}}</td>
+      <td>{{catch.species}}</td>
+      <td>{{catch.weight}}</td>
+      <td>{{catch.length}}</td>
+      <td>{{catch.location}}</td>
+      <td>
+        <button class="btn btn-success btn-sm mx-auto" routerLink="trip/{{catch._id}}/catches">View</button>
+        <button class="btn btn-primary btn-sm mx-auto" routerLink="edit/{{catch._id}}">Edit</button>
+        <button class="btn btn-danger btn-sm mx-auto" (click)="deleteData(catch._uid, catch._tripId, catch._id)" >Delete</button>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <input class="mx-auto" type="text" placeholder="Enter species. . ." name="species">
+      </td>
+      <td>
+        <input class="mx-auto" type="number" placeholder="Enter weight. . ." name="weight">
+      </td>
+      <td>
+        <input class="mx-auto" type="number" placeholder="Enter length. . ." name="length">
+      </td>
+      <td>
+        <input class="mx-auto" type="text" placeholder="Enter location. . ." name="location">
+      </td>
+      <td>
+        <button class="btn btn-success btn-sm mx-auto" routerLink="trip/catches">Add</button>
+      </td>
+    </tr>
+  </tbody>
+</div>
