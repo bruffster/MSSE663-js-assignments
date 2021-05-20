@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 
-const { OktaUser, Trip } = require ('../models/model');
+const { OktaUser, Trip, Catch } = require ('../models/model');
 
 
 // Get All Trips for User
@@ -13,6 +13,35 @@ router.get('/api/:uid/trips', (req, res) => {
     } else {
       console.log(err);
     }
+  });
+});
+
+// Get All Catches for a trip
+router.get('/api/:uid/trips/:tripId/catches', (req, res) => {
+  Catch.find({ _uid: req.params.uid, _tripId: req.params.tripId }, (err, data) => {
+    if(!err) {
+      res.send(data);
+    } else {
+      console.log(err);
+    }
+  });
+});
+
+// Save Catch
+router.post('/api/:uid/trips/:tripId/catch/add', (req, res) => {
+  const newCatch = new Catch({
+    species: req.body.species,
+    weight: req.body.weight,
+    length: req.body.length,
+    location: req.body.location,
+    _uid: req.body._uid,
+    _tripId: req.body._tripId
+  });
+
+  newCatch.save((err, data) => {
+    res.status(200).json({ code: 200, message: 'Catch Added Successfully', addCatch: data});
+    console.log('body');
+    console.log(newCatch);
   });
 });
 
@@ -87,6 +116,17 @@ router.delete('/api/trip/:id', (req, res) => {
   Trip.findByIdAndRemove(req.params.id, (err, data) => {
     if(!err) {
       res.status(200).json({ code: 200, message: 'Trip Deleted Successfully', deleteTrip: data});
+    } else {
+      console.log(err);
+    }
+  });
+});
+
+// Delete catch
+router.delete('/api/:uid/trips/:tripId/catches/:id', (req, res) => {
+  Catch.findByIdAndRemove(req.params.id, (err, data) => {
+    if(!err) {
+      res.status(200).json({ code: 200, message: 'Catch Deleted Successfully', deleteTrip: data});
     } else {
       console.log(err);
     }

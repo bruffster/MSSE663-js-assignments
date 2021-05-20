@@ -33,4 +33,32 @@ const Trip = mongoose.model('trips', {
   }
 });
 
-module.exports = { OktaUser, Trip }
+// catch
+const Catch = mongoose.model('catches', {
+  species: {
+    type: String,
+    required: true
+  },
+  weight: {
+    type: Number,
+    required: true
+  },
+  length: {
+    type: Number,
+    required: true
+  },
+  location: {
+    type: String,
+    required: true
+  },
+  _uid: {
+    type: String,
+    required: true
+  },
+  _tripId: {
+    type: String,
+    required: true
+  }
+});
+
+module.exports = { OktaUser, Trip, Catch }
