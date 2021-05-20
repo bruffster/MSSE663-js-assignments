@@ -19,18 +19,15 @@ export class CatchComponent implements OnInit {
   form!:any;
   submitted=false;
   closeModal!:String;
+  modal:any;
   uid = JSON.parse(localStorage.getItem('okta-token-storage') || '{}').idToken.claims.sub;
 
-  public  email:  string  =  "";
-  public  password:  string  =  "";
-  constructor(private modalService:NgbModal, private  dialog:  MatDialog, private tripService:TripService, private formBuilder: FormBuilder, private toastr: ToastrService, private route:ActivatedRoute, private router:Router) { }
+  constructor(private modalService:NgbModal, private tripService:TripService, private formBuilder: FormBuilder, private toastr: ToastrService, private route:ActivatedRoute, private router:Router) { }
 
   ngOnInit(): void {
     this.tripId = this.route.snapshot.params.tripId;
     this.createForm();
-    console.log(this.tripId);
     this.getTripsData(this.uid, this.tripId);
-
   }
 
   get f() {
@@ -69,7 +66,10 @@ export class CatchComponent implements OnInit {
         timeOut: 3000,
         progressBar: true,
       });
+      
       this.getTripsData(this.uid, this.tripId);
+      this.form.reset();
+      this.submitted =false;
     });
   }
 

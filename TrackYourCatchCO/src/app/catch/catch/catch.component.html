@@ -36,10 +36,10 @@
     </button>
   </div>
   <div class="container">
-    <form (ngSubmit)="insertCatch()" [formGroup]="form">
+    <form (ngSubmit)="insertCatch();" #formDirective="ngForm" [formGroup]="form">
       <div class="form-group">
         <label for="species">Species</label>
-        <input type="text" formControlName="species" [ngClass]="{'is-invalid':submitted && f.species.errors}" class="form-control" placeholder="Enter species Name">
+        <input type="text" formControlName="species" [ngClass]="{'is-invalid':submitted && f.species.errors}" class="form-control" placeholder="Enter Species. . .">
   
         <div *ngIf="submitted && f.species.errors" class="invalid-feedback">
           <div *ngIf="f.species.errors.required">Species is required</div>
@@ -48,34 +48,34 @@
       </div>
   
       <div class="form-group">
-        <label for="weight">weight</label>
-        <input type="number" formControlName="weight" [ngClass]="{'is-invalid':submitted && f.weight.errors}" class="form-control" placeholder="Enter weight">
+        <label for="weight">Weight (lb)</label>
+        <input type="number" formControlName="weight" [ngClass]="{'is-invalid':submitted && f.weight.errors}" class="form-control" placeholder="Enter Weight (lb). . .">
   
         <div *ngIf="submitted && f.weight.errors" class="invalid-feedback">
-          <div *ngIf="f.weight.errors.required">weight is required</div>
+          <div *ngIf="f.weight.errors.required">Weight is required</div>
         </div>
       </div>
   
       <div class="form-group">
-        <label for="length">length</label>
-        <input type="number" formControlName="length" [ngClass]="{'is-invalid':submitted && f.length.errors}" class="form-control" placeholder="Enter length">
+        <label for="length">Length (in)</label>
+        <input type="number" formControlName="length" [ngClass]="{'is-invalid':submitted && f.length.errors}" class="form-control" placeholder="Enter Length (in). . .">
   
         <div *ngIf="submitted && f.length.errors" class="invalid-feedback">
-          <div *ngIf="f.length.errors.required">length is required</div>
+          <div *ngIf="f.length.errors.required">Length is required</div>
         </div>
       </div>
   
       <div class="form-group">
-        <label for="location">location</label>
-        <input type="text" formControlName="location" [ngClass]="{'is-invalid':submitted && f.location.errors}" class="form-control" placeholder="Enter location">
+        <label for="location">Location</label>
+        <input type="text" formControlName="location" [ngClass]="{'is-invalid':submitted && f.location.errors}" class="form-control" placeholder="Enter Location. . .">
   
         <div *ngIf="submitted && f.location.errors" class="invalid-feedback">
-          <div *ngIf="f.location.errors.required">location is required</div>
+          <div *ngIf="f.location.errors.required">Location is required</div>
         </div>
       </div>
   
       <div class="modal-footer form-group">
-        <button class="btn btn-success mt-4" (click)="modal.close('Save click')">Submit</button>
+        <button class="btn btn-success mt-4" (click)="(!f.species.errors && !f.length.errors && !f.weight.errors && !f.location.errors) ? modal.close('Save click') : ''">Submit</button>
       </div>
     </form>
   </div>
