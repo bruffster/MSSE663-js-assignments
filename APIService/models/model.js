@@ -33,7 +33,7 @@ const Trip = mongoose.model('trips', {
   }
 });
 
-// catche
+// catch
 const Catch = mongoose.model('catches', {
   species: {
     type: String,
@@ -48,6 +48,14 @@ const Catch = mongoose.model('catches', {
     required: true
   },
   location: {
+    type: String,
+    required: true
+  },
+  _uid: {
+    type: String,
+    required: true
+  },
+  _tripId: {
     type: String,
     required: true
   }

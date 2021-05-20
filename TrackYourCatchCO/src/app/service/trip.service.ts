@@ -23,6 +23,10 @@ export class TripService {
     return this.httpClient.post(environment.apiUrl + '/trip/add', data);
   }
 
+  insertCatch(uid:any, tripId:any, data: any) {
+    return this.httpClient.post(environment.apiUrl + '/' + uid + '/trips/' + tripId + '/catch/add', data);
+  }
+
   insertOktaUser(data: any) {
     return this.httpClient.post(environment.apiUrl + '/addOktaUser', data);
   }

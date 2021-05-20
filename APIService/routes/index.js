@@ -27,6 +27,24 @@ router.get('/api/:uid/trips/:tripId/catches', (req, res) => {
   });
 });
 
+// Save Catch
+router.post('/api/:uid/trips/:tripId/catch/add', (req, res) => {
+  const newCatch = new Catch({
+    species: req.body.species,
+    weight: req.body.weight,
+    length: req.body.length,
+    location: req.body.location,
+    _uid: req.body._uid,
+    _tripId: req.body._tripId
+  });
+
+  newCatch.save((err, data) => {
+    res.status(200).json({ code: 200, message: 'Catch Added Successfully', addCatch: data});
+    console.log('body');
+    console.log(newCatch);
+  });
+});
+
 // Save Trip
 router.post('/api/trip/add', (req, res) => {
   const trip = new Trip({

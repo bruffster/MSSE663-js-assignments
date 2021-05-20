@@ -18,28 +18,65 @@
       <td>{{catch.length}}</td>
       <td>{{catch.location}}</td>
       <td>
-        <button class="btn btn-success btn-sm mx-auto" routerLink="trip/{{catch._id}}/catches">View</button>
+        <button class="btn btn-info btn-sm mx-auto" routerLink="trip/{{catch._id}}/catches">Info</button>
         <button class="btn btn-primary btn-sm mx-auto" routerLink="edit/{{catch._id}}">Edit</button>
         <button class="btn btn-danger btn-sm mx-auto" (click)="deleteData(catch._uid, catch._tripId, catch._id)" >Delete</button>
       </td>
     </tr>
-    <tr>
-      <td></td>
-      <td>
-        <input class="mx-auto" type="text" placeholder="Enter species. . ." name="species">
-      </td>
-      <td>
-        <input class="mx-auto" type="number" placeholder="Enter weight. . ." name="weight">
-      </td>
-      <td>
-        <input class="mx-auto" type="number" placeholder="Enter length. . ." name="length">
-      </td>
-      <td>
-        <input class="mx-auto" type="text" placeholder="Enter location. . ." name="location">
-      </td>
-      <td>
-        <button class="btn btn-success btn-sm mx-auto" routerLink="trip/catches">Add</button>
-      </td>
-    </tr>
   </tbody>
 </div>
+
+<button class="btn btn-primary" (click)="triggerModal(modalData)">Add Catch</button>
+
+<ng-template #modalData let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add Catch</h4>
+    <button class="btn btn-danger" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="container">
+    <form (ngSubmit)="insertCatch()" [formGroup]="form">
+      <div class="form-group">
+        <label for="species">Species</label>
+        <input type="text" formControlName="species" [ngClass]="{'is-invalid':submitted && f.species.errors}" class="form-control" placeholder="Enter species Name">
+  
+        <div *ngIf="submitted && f.species.errors" class="invalid-feedback">
+          <div *ngIf="f.species.errors.required">Species is required</div>
+        </div>
+        
+      </div>
+  
+      <div class="form-group">
+        <label for="weight">weight</label>
+        <input type="number" formControlName="weight" [ngClass]="{'is-invalid':submitted && f.weight.errors}" class="form-control" placeholder="Enter weight">
+  
+        <div *ngIf="submitted && f.weight.errors" class="invalid-feedback">
+          <div *ngIf="f.weight.errors.required">weight is required</div>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="length">length</label>
+        <input type="number" formControlName="length" [ngClass]="{'is-invalid':submitted && f.length.errors}" class="form-control" placeholder="Enter length">
+  
+        <div *ngIf="submitted && f.length.errors" class="invalid-feedback">
+          <div *ngIf="f.length.errors.required">length is required</div>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="location">location</label>
+        <input type="text" formControlName="location" [ngClass]="{'is-invalid':submitted && f.location.errors}" class="form-control" placeholder="Enter location">
+  
+        <div *ngIf="submitted && f.location.errors" class="invalid-feedback">
+          <div *ngIf="f.location.errors.required">location is required</div>
+        </div>
+      </div>
+  
+      <div class="modal-footer form-group">
+        <button class="btn btn-success mt-4" (click)="modal.close('Save click')">Submit</button>
+      </div>
+    </form>
+  </div>
+</ng-template>

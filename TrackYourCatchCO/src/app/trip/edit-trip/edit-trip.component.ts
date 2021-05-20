@@ -30,6 +30,7 @@ export class EditTripComponent implements OnInit {
   }
 
   get f() {
+    console.log(this.form.controls)
     return this.form.controls;
   }
 
