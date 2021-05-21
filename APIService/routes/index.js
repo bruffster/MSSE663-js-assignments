@@ -133,4 +133,32 @@ router.delete('/api/:uid/trips/:tripId/catches/:id', (req, res) => {
   });
 });
 
+// Get Single Trip
+router.get('/api/:uid/trips/:tripId/catches/:id', (req, res) => {
+  Catch.findById(req.params.id, (err, data) => {
+    if(!err) {
+      res.send(data);
+    } else {
+      console.log(err);
+    }
+  });
+});
+
+// Update Trip
+router.put('/api/:uid/trips/:tripId/catches/edit/:id', (req, res) => {
+  const catchData = {
+    species: req.body.species,
+    length: req.body.length,
+    weight: req.body.weight,
+    location: req.body.location
+  };
+  Catch.findByIdAndUpdate(req.params.id, { $set:catchData }, { new:true }, (err, data) => {
+    if(!err) {
+      res.status(200).json({ code: 200, message: 'Catch Updated Successfully', updateTrip: data });
+    } else {
+      console.log(err);
+    }
+  });
+});
+
 module.exports = router;  
