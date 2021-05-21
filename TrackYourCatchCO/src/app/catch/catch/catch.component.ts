@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { TripService } from 'src/app/service/trip.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Catch } from '../../model/models.model';
+
 
 
 @Component({
@@ -18,11 +20,21 @@ export class CatchComponent implements OnInit {
   tripId:any;
   form!:any;
   submitted=false;
+  submitted2=false;
   closeModal!:String;
+  closeModal2!:String;
   modal:any;
+  catch = new Catch();
   uid = JSON.parse(localStorage.getItem('okta-token-storage') || '{}').idToken.claims.sub;
 
   constructor(private modalService:NgbModal, private tripService:TripService, private formBuilder: FormBuilder, private toastr: ToastrService, private route:ActivatedRoute, private router:Router) { }
+
+  updateCatchForm = new FormGroup({
+    species: new FormControl('', Validators.required),
+    length: new FormControl('', Validators.required),
+    weight: new FormControl('', Validators.required),
+    location: new FormControl('', [Validators.required]),
+  });
 
   ngOnInit(): void {
     this.tripId = this.route.snapshot.params.tripId;
@@ -32,6 +44,10 @@ export class CatchComponent implements OnInit {
 
   get f() {
     return this.form.controls;
+  }
+
+  get f1() {
+    return this.updateCatchForm.controls;
   }
 
   getTripsData(uid:any, tripId:any) {
@@ -69,7 +85,8 @@ export class CatchComponent implements OnInit {
       
       this.getTripsData(this.uid, this.tripId);
       this.form.reset();
-      this.submitted =false;
+      this.submitted = false;
+      //this.resetFormData(this.form, this.submitted);
     });
   }
 
@@ -84,14 +101,14 @@ export class CatchComponent implements OnInit {
     });
   }
 
-  triggerModal(content:any) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((res) => {
-      this.closeModal = `Closed with: ${res}`;
+  triggerModal(content:any, ariaLbl:String) {
+    this.modalService.open(content, {ariaLabelledBy: ariaLbl.toString()}).result.then((res) => {
+      this.closeModal2 = `Closed with: ${res}`;
     }, (res) => {
-      this.closeModal = `Dismissed ${this.getDismissReason(res)}`;
+      this.closeModal2 = `Dismissed ${this.getDismissReason(res)}`;
     });
   }
-  
+
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
@@ -100,6 +117,41 @@ export class CatchComponent implements OnInit {
     } else {
       return  `with: ${reason}`;
     }
+  }
+
+  getCatchData(id:any) {
+    this.tripService.getCatch(this.uid, this.tripId, id).subscribe(res => {
+      this.data = res;
+      this.catch = this.data;
+      console.log(this.catch);
+      this.updateCatchForm = new FormGroup({
+        species: new FormControl(this.catch.species, Validators.required),
+        length: new FormControl(this.catch.length, [Validators.required]),
+        weight: new FormControl(this.catch.weight, Validators.required),
+        location: new FormControl(this.catch.location, Validators.required)
+      });
+    });
+  }
+
+  updateCatchData(id:any) {
+    this.submitted2 = true;
+
+    if(this.updateCatchForm.invalid) {
+      return;
+    }
+
+    this.tripService.updateCatch(this.uid, this.tripId, id, this.updateCatchForm.value).subscribe(res => {
+      this.data = res;
+      this.toastr.success(JSON.stringify(this.data.code), JSON.stringify(this.data.message), {
+        timeOut: 3000,
+        progressBar: true,
+      });
+
+      this.getTripsData(this.uid, this.tripId);
+      this.submitted2 = false;
+      this.updateCatchForm.reset();
+        });
+
   }
 
 }

@@ -51,4 +51,14 @@ export class TripService {
     console.log('uid: ' + uid + ' tripId: ' + tripId + ' id: ' + id);
     return this.httpClient.delete(environment.apiUrl + '/' + uid + '/trips/' + tripId +'/catches/' + id);
   }
+
+  getCatch(uid:any, tripId:any, id:any) {
+    console.log('APICall: uid: ' + uid + ' tripId: ' + tripId + ' id: ' + id);
+    return this.httpClient.get(environment.apiUrl + '/' + uid + '/trips/' + tripId +'/catches/' + id);
+  }
+
+  updateCatch(uid:any, tripId:any, id:any, data:any) {
+    console.log('uid: ' + uid + ' tripId: ' + tripId + ' id: ' + id);
+    return this.httpClient.put(environment.apiUrl + '/' + uid + '/trips/' + tripId +'/catches/edit/' + id, data);
+  }
 }
