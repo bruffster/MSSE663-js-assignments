@@ -10,3 +10,13 @@ export class Trip {
   location:any;
   date:any;
 }
+
+export class Catch {
+  _id:any;
+  _uid:any;
+  _tripId:any;
+  species:any;
+  length:any;
+  weight:any;
+  location:any;
+}
