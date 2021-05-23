@@ -19,4 +19,6 @@ connectDB();
 //Routes
 app.use('/', require('./routes/index'));
 
-app.listen(3000); 
+app.listen(3000, () => {
+  console.log('Running on port 3000...');
+}); 
