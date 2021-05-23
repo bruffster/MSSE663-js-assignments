@@ -1,0 +1,31 @@
+{
+  "name": "example",
+  "version": "1.0.0",
+  "description": "Example test app",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -r ts-node/register src/**/*.spec.ts",
+    "lint": "eslint src/**/*.ts --fix"
+  },
+  "author": "Benjamin Bruffey",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^4.2.4"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.18",
+    "@types/express": "^4.17.11",
+    "@types/mocha": "^8.2.2",
+    "@types/mongoose": "^5.10.5",
+    "@types/typescript": "^2.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.24.0",
+    "@typescript-eslint/parser": "^4.24.0",
+    "chai": "^4.3.4",
+    "eslint": "^7.27.0",
+    "express": "^4.17.1",
+    "mocha": "^8.4.0",
+    "mongoose": "^5.12.10",
+    "ts-mongoose": "^0.0.24",
+    "ts-node": "^9.1.1"
+  }
+}

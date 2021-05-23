@@ -16,35 +16,6 @@ router.get('/api/:uid/trips', (req, res) => {
   });
 });
 
-// Get All Catches for a trip
-router.get('/api/:uid/trips/:tripId/catches', (req, res) => {
-  Catch.find({ _uid: req.params.uid, _tripId: req.params.tripId }, (err, data) => {
-    if(!err) {
-      res.send(data);
-    } else {
-      console.log(err);
-    }
-  });
-});
-
-// Save Catch
-router.post('/api/:uid/trips/:tripId/catch/add', (req, res) => {
-  const newCatch = new Catch({
-    species: req.body.species,
-    weight: req.body.weight,
-    length: req.body.length,
-    location: req.body.location,
-    _uid: req.body._uid,
-    _tripId: req.body._tripId
-  });
-
-  newCatch.save((err, data) => {
-    res.status(200).json({ code: 200, message: 'Catch Added Successfully', addCatch: data});
-    console.log('body');
-    console.log(newCatch);
-  });
-});
-
 // Save Trip
 router.post('/api/trip/add', (req, res) => {
   const trip = new Trip({
@@ -61,33 +32,10 @@ router.post('/api/trip/add', (req, res) => {
   });
 });
 
-// Save Okta User Info
-router.post('/api/addOktaUser', (req, res) => {
-  const oktaU = new OktaUser({
-    email: req.body.email,
-    uid: req.body.uid
-  });
-  oktaU.save((err, data) => {
-    res.status(200).json({ code: 200, message: 'Okta User Added Successfully', addOktaUser: data});
-  });
-});
-
 // Get Single Trip
 router.get('/api/trip/:id', (req, res) => {
   Trip.findById(req.params.id, (err, data) => {
     if(!err) {
-      res.send(data);
-    } else {
-      console.log(err);
-    }
-  })
-});
-
-// Get Okta User By ID
-router.get('/api/okta/:uid', (req, res) => {
-  OktaUser.findOne({uid: req.params.uid}, (err, data) => {
-    if(!err) {
-      console.log(data);
       res.send(data);
     } else {
       console.log(err);
@@ -121,6 +69,37 @@ router.delete('/api/trip/:id', (req, res) => {
     }
   });
 });
+
+
+// Get All Catches for a trip
+router.get('/api/:uid/trips/:tripId/catches', (req, res) => {
+  Catch.find({ _uid: req.params.uid, _tripId: req.params.tripId }, (err, data) => {
+    if(!err) {
+      res.send(data);
+    } else {
+      console.log(err);
+    }
+  });
+});
+
+// Save Catch
+router.post('/api/:uid/trips/:tripId/catch/add', (req, res) => {
+  const newCatch = new Catch({
+    species: req.body.species,
+    weight: req.body.weight,
+    length: req.body.length,
+    location: req.body.location,
+    _uid: req.body._uid,
+    _tripId: req.body._tripId
+  });
+
+  newCatch.save((err, data) => {
+    res.status(200).json({ code: 200, message: 'Catch Added Successfully', addCatch: data});
+    console.log('body');
+    console.log(newCatch);
+  });
+});
+
 
 // Delete catch
 router.delete('/api/:uid/trips/:tripId/catches/:id', (req, res) => {
@@ -159,6 +138,32 @@ router.put('/api/:uid/trips/:tripId/catches/edit/:id', (req, res) => {
       console.log(err);
     }
   });
+});
+
+
+// Save Okta User Info
+router.post('/api/addOktaUser', (req, res) => {
+  const oktaU = new OktaUser({
+    email: req.body.email,
+    uid: req.body.uid
+  });
+  oktaU.save((err, data) => {
+    res.status(200).json({ code: 200, message: 'Okta User Added Successfully', addOktaUser: data});
+  });
+});
+
+
+
+// Get Okta User By ID
+router.get('/api/okta/:uid', (req, res) => {
+  OktaUser.findOne({uid: req.params.uid}, (err, data) => {
+    if(!err) {
+      console.log(data);
+      res.send(data);
+    } else {
+      console.log(err);
+    }
+  })
 });
 
 module.exports = router;  
