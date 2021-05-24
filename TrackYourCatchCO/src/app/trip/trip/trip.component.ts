@@ -19,14 +19,14 @@ export class TripComponent implements OnInit {
   }
 
   getTripsData(uid:any) {
-    this.tripService.getData(uid).subscribe(res => {
+    this.tripService.getTrips(uid).subscribe(res => {
       console.log(res);
       this.trips = res;
     });
   }
 
-  deleteData(id:any) {
-    this.tripService.deleteData(id).subscribe(res => {
+  deleteTrip(id:any) {
+    this.tripService.deleteTrip(id).subscribe(res => {
       this.data = res;
       this.toastr.error(JSON.stringify(this.data.code), JSON.stringify(this.data.message), {
         timeOut: 3000,

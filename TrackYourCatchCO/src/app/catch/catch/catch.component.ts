@@ -25,7 +25,7 @@ export class CatchComponent implements OnInit {
   closeModal2!:String;
   modal:any;
   catch = new Catch();
-  uid = JSON.parse(localStorage.getItem('okta-token-storage') || '{}').idToken.claims.sub;
+  uid:any; 
 
   constructor(private modalService:NgbModal, private tripService:TripService, private formBuilder: FormBuilder, private toastr: ToastrService, private route:ActivatedRoute, private router:Router) { }
 
@@ -37,6 +37,7 @@ export class CatchComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    this.uid = JSON.parse(localStorage.getItem('okta-token-storage') || '{}').idToken.claims.sub;
     this.tripId = this.route.snapshot.params.tripId;
     this.createForm();
     this.getTripsData(this.uid, this.tripId);
@@ -90,7 +91,7 @@ export class CatchComponent implements OnInit {
     });
   }
 
-  deleteData(uid:any, tripId:any, id:any) {
+  deleteCatch(uid:any, tripId:any, id:any) {
     this.tripService.deleteCatch(uid, tripId, id).subscribe(res => {
       this.data = res;
       this.toastr.error(JSON.stringify(this.data.code), JSON.stringify(this.data.message), {

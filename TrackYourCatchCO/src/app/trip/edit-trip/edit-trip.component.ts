@@ -35,7 +35,7 @@ export class EditTripComponent implements OnInit {
   }
 
   getData() {
-    this.tripService.getDataById(this.id).subscribe(res => {
+    this.tripService.getTripById(this.id).subscribe(res => {
       this.data = res;
       this.trip = this.data;
       this.form = new FormGroup({
@@ -46,14 +46,14 @@ export class EditTripComponent implements OnInit {
     });
   }
 
-  updateData() {
+  updateTrip() {
     this.submitted = true;
 
     if(this.form.invalid) {
       return;
     }
 
-    this.tripService.updateData(this.id, this.form.value).subscribe(res => {
+    this.tripService.updateTrip(this.id, this.form.value).subscribe(res => {
       this.data = res;
       
       this.toastr.success(JSON.stringify(this.data.code), JSON.stringify(this.data.message), {

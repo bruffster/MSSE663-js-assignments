@@ -1,3 +1,14 @@
+/*
+ * The source code and instruction to implement the Okta Auth and sign-in-widget came from the following source:
+ * https://developer.okta.com/blog/2019/02/12/secure-angular-login
+ * The example was altered and update to work for my angular project.
+ * Okta provides a lot of examples on how to setup their authentication
+ * with your angular projects.  Currently the Okta app settings are
+ * configured to work with localhost and port 4200 for the angular application.
+ * Should this application change ports, or run as a live website, the signin 
+ * and signout redirects would need updated to account for this.
+ */
+
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 

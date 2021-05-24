@@ -44,7 +44,7 @@ export class AddTripComponent implements OnInit {
     }
 
     this.form.value['_uid'] = JSON.parse(localStorage.getItem('okta-token-storage') || '{}').idToken.claims.sub;
-    this.tripService.insertData(this.form.value).subscribe(res => {
+    this.tripService.insertTrip(this.form.value).subscribe(res => {
       this.data = res;
       this.toastr.success(JSON.stringify(this.data.code), JSON.stringify(this.data.message),
       {
