@@ -16,7 +16,7 @@ describe('Tests for observable.ts', () => {
     });
 
     
-    it('should equal the contents of the mapped array [5,10,15,20,25]', () => {
+    it('should equal the contents of the mapped array by multiplying the initial array\'s contents by a factor of 5 [5,10,15,20,25]', () => {
       const arrInit = [1,2,3,4,5];
       const arrFinal = [5,10,15,20,25];
       const arrMap$ = manipulateArray(arrInit, 5);
@@ -27,7 +27,7 @@ describe('Tests for observable.ts', () => {
       });
     });
 
-    it('should equal the contents of the mapped array [23,46,69,92,115]', () => {
+    it('should equal the contents of the mapped array by multiplying the initial array\'s contents by a factor of 23 [23,46,69,92,115]', () => {
       const arrInit = [1,2,3,4,5];
       const arrFinal = [23,46,69,92,115];
       const arrMap$ = manipulateArray(arrInit, 23);
