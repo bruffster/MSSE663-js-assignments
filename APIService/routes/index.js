@@ -140,7 +140,6 @@ router.put('/api/:uid/trips/:tripId/catches/edit/:id', (req, res) => {
   });
 });
 
-
 // Save Okta User Info
 router.post('/api/addOktaUser', (req, res) => {
   const oktaU = new OktaUser({
@@ -151,8 +150,6 @@ router.post('/api/addOktaUser', (req, res) => {
     res.status(200).json({ code: 200, message: 'Okta User Added Successfully', addOktaUser: data});
   });
 });
-
-
 
 // Get Okta User By ID
 router.get('/api/okta/:uid', (req, res) => {

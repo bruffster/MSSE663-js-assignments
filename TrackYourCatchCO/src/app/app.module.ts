@@ -19,7 +19,6 @@ import { OKTA_CONFIG, OktaAuthModule } from '@okta/okta-angular';
 import { OktaAuthOptions } from '@okta/okta-auth-js';
 import { LoginComponent } from './login/login.component';
 
-import {Injector} from '@angular/core';
 import { CatchComponent } from './catch/catch/catch.component';
 import { EditCatchComponent } from './catch/edit-catch/edit-catch.component';
 
@@ -84,9 +83,5 @@ const appRoutes:Routes = [
   providers: [{ provide: OKTA_CONFIG, useValue: oktaConfig }],
   bootstrap: [AppComponent]
 })
-export class AppModule {   constructor(private injector: Injector) 
-  {
-    InjectorInstance = this.injector;
-  }}
-export let InjectorInstance: Injector;
+export class AppModule {}
 
