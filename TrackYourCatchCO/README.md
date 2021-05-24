@@ -55,3 +55,5 @@ It provides a way to create an account, login, and add catches as well as search
 ## Areas to improve
 
 ## Known Issues
+
+- Need to update and add more unit tests
