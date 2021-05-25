@@ -1,5 +1,10 @@
 # TrackYourCatchCO - APIService
 
+## Node and NPM Versions
+
+- Node: v14.16.1
+- NPM: v6.14.13
+
 ## Installation
 
 Run `npm i` to install all of the dependencies inside of the APIService project

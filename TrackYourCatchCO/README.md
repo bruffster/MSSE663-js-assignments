@@ -2,6 +2,11 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.11.
 
+## Node and NPM Versions
+
+- Node: v14.16.1
+- NPM: v6.14.13
+
 ## Installation
 
 Run `npm i` to install all of the dependencies inside of the TrackYourCatchCO project
