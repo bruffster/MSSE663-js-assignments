@@ -51,7 +51,8 @@ export const data = [
     task: 'Do the last thing'
   }
 ];
-
+console.log('Data array prior to manipulation:');
+console.log(data);
 export const update = {
   id: 1,
   task: 'Do the other thing... again'
