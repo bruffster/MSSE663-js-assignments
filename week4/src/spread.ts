@@ -5,8 +5,13 @@ export const originalNumbers = numbers.map(number => number);
 console.log(originalNumbers);
 
 // refactor here
-export const numbers2 = [...numbers];
-console.log(numbers2.map(num => num));
+export const numbersCopy = [...numbers];
+
+console.log('Refactor #1:');
+console.log(numbersCopy);
+console.log('\n\n')
+
+
 
 // #2 Combining arrays
 export const winners = ['first'];
@@ -14,7 +19,10 @@ export const runnerUps = ['second', 'third', 'fourth', 'fifth'];
 
 // refactor here
 export const finishers = [...winners, ...runnerUps];
+
+console.log('Refactor #2:')
 console.log(finishers);
+console.log('\n\n');
 // #3 Combining objects
 export const bob = {
   man: 'Bob'
@@ -32,8 +40,11 @@ export const people = {
   ...kyle
 }
 
+console.log('Original #3:');
 console.log(originalPersons);
+console.log('Refactored #3:');
 console.log(people);
+console.log('\n\n');
 
 
 // #4 Modifying values in arrays of objects
@@ -51,8 +62,7 @@ export const data = [
     task: 'Do the last thing'
   }
 ];
-console.log('Data array prior to manipulation:');
-console.log(data);
+
 export const update = {
   id: 1,
   task: 'Do the other thing... again'
@@ -66,19 +76,16 @@ export const originalUpdates = data.map(task => {
 });
 
 // refactor here
-const newUpdates = data.map((task): object => {
+export const newUpdates = data.map((task): object => {
   if(task.id === update.id) {
     return {...task, ...update};
   }
   return task;
 });
 
-console.log('data');
-console.log(data);
-console.log('Morgan\'s stuff');
-console.log(originalUpdates)
-console.log('my stuff');
+console.log('Original #4:');
+console.log(originalUpdates);
+console.log('Refactored #4');
 console.log(newUpdates);
-console.log('data');
-console.log(data);
+
 
