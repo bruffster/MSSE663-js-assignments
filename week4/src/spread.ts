@@ -74,6 +74,7 @@ export const originalUpdates = data.map(task => {
   }
   return task;
 });
+console.log('after morgan');
 
 // refactor here
 export const newUpdates = data.map((task): object => {
