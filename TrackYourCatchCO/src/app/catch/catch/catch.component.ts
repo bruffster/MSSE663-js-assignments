@@ -152,7 +152,5 @@ export class CatchComponent implements OnInit {
       this.submitted2 = false;
       this.updateCatchForm.reset();
         });
-
   }
-
 }
