@@ -1,12 +1,12 @@
 {
-  "name": "week3",
+  "name": "week5",
   "version": "1.0.0",
-  "description": "Week 3 assignments",
+  "description": "Week 5 assignments",
   "main": "index.js",
   "scripts": {
     "lint": "eslint **/*.ts --fix",
     "test": "mocha -r ts-node/register src/**/*.spec.ts",
-    "dev": "ts-node src/spread.ts",
+    "dev": "ts-node src/array-destructuring.ts",
     "tsc": "tsc"
   },
   "author": "",

@@ -1,7 +1,7 @@
 {
-  "name": "week3",
+  "name": "week4",
   "version": "1.0.0",
-  "description": "Week 3 assignments",
+  "description": "Week 4 assignments",
   "main": "index.js",
   "scripts": {
     "lint": "eslint **/*.ts --fix",
