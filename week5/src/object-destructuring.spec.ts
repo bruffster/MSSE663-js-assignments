@@ -17,8 +17,8 @@ describe('Object destructuring tests', () => {
   it('#3 should create a new object given the destructed variables from the nested object', () => {
     expect(newObj).to.eql({
       newUser: 'elvis',
-      location: {city:'denver', state:'colorado'},
-      identifier: 1
+      newAddress: {city:'denver', state:'colorado'},
+      newId: 1
     });
   });
 
