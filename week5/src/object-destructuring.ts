@@ -30,8 +30,8 @@ console.log(id); // 1
 // reconstruct here
 export const newObj = {
   newUser: user,
-  location: address,
-  identifier: id
+  newAddress: address,
+  newId: id
 }
 
 // #3 Object with key value pairs: construct a statement
