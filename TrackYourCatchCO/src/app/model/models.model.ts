@@ -19,4 +19,11 @@ export class Catch {
   length:any;
   weight:any;
   location:any;
+  lat:any;
+  lng:any;
+}
+
+export class Settings {
+  _id:any;
+  googleapikey: any;
 }

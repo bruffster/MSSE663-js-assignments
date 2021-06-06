@@ -16,8 +16,8 @@ export class AddTripComponent implements OnInit {
   form!: FormGroup;
   submitted=false;
   data:any;
-  userinfo:any
-  uid:any
+  //userinfo:any
+  uid!:String
   constructor(private tripService:TripService, private formBuilder: FormBuilder, private toastr: ToastrService, private router: Router, private oktaAuth:OktaAuthService) { }
 
   async createForm() {

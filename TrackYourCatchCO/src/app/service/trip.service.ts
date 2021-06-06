@@ -72,4 +72,15 @@ export class TripService {
     console.log('uid: ' + uid + ' tripId: ' + tripId + ' id: ' + id);
     return this.httpClient.put(environment.apiUrl + '/' + uid + '/trips/' + tripId +'/catches/edit/' + id, data);
   }
+
+  // Update a catch Location
+  updateCatchLocation(uid:any, tripId:any, id:any, data:any) {
+    console.log('uid: ' + uid + ' tripId: ' + tripId + ' id: ' + id);
+    return this.httpClient.put(environment.apiUrl + '/' + uid + '/trips/' + tripId +'/catches/edit/location/' + id, data);
+  }
+
+   // Get settings
+   getSettings() {
+    return this.httpClient.get(environment.apiUrl + '/settings/');
+  }
 }
