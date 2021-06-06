@@ -18,14 +18,14 @@ export class TripComponent implements OnInit {
     this.getTripsData(JSON.parse(localStorage.getItem('okta-token-storage') || '{}').idToken.claims.sub);
   }
 
-  getTripsData(uid:any) {
+  getTripsData(uid:String) {
     this.tripService.getTrips(uid).subscribe(res => {
       console.log(res);
       this.trips = res;
     });
   }
 
-  deleteTrip(id:any) {
+  deleteTrip(id:String) {
     this.tripService.deleteTrip(id).subscribe(res => {
       this.data = res;
       this.toastr.error(JSON.stringify(this.data.code), JSON.stringify(this.data.message), {

@@ -4,6 +4,8 @@
 
   Second modal added to update the content of a catch already added
 -->
+<script src="//maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
+<div>
 <div class="table">
   <thead>
     <tr>
@@ -24,13 +26,26 @@
       <td>{{catch.length}}</td>
       <td>{{catch.location}}</td>
       <td>
-        <button class="btn btn-primary btn-sm mx-auto" (click)="getCatchData(catch._id);triggerModal(updateModalData, 'edit-catch-modal')">Edit</button>
+        <button class="btn btn-primary btn-sm mx-auto" (click)="getCatchData(this.uid, this.tripId,catch._id);triggerModal(updateModalData, 'edit-catch-modal')">Edit</button>
+        <button class="btn btn-success btn-sm mx-auto" (click)="setCoord()">Get Location</button>
         <button class="btn btn-danger btn-sm mx-auto" (click)="deleteCatch(catch._uid, catch._tripId, catch._id)" >Delete</button>
       </td>
     </tr>
   </tbody>
 </div>
   <button class="btn btn-primary" (click)="triggerModal(addModalData, 'add-catch-modal')">Add Catch</button>
+
+  <!--
+  <ng-container #addModalData>
+    <app-add-catch></app-add-catch>
+  </ng-container>
+
+  <ng-container #updateModalData>
+    <app-edit-catch></app-edit-catch>
+
+  </ng-container>
+-->
+</div>
 
 
 <ng-template #addModalData let-modal>
@@ -86,6 +101,7 @@
   </div>
 </ng-template>
 
+
 <ng-template #updateModalData let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="edit-catch-modal">Edit Catch</h4>
@@ -138,3 +154,5 @@
     </form>
   </div>
 </ng-template>
+<app-loader [loader]="isLoading"></app-loader>
+<div #mapContainer id="map"></div>

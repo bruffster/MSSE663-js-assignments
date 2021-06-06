@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class EditTripComponent implements OnInit {
   trip = new Trip();
-  id:any;
+  id!:String;
   data:any;
   submitted=false;
   constructor(private tripService:TripService, private route: ActivatedRoute, private toastr:ToastrService, private router: Router) { }

@@ -4,7 +4,7 @@ import { OktaCallbackComponent, OktaAuthGuard, OktaAuthService } from '@okta/okt
 import { AddTripComponent } from './trip/add-trip/add-trip.component';
 import { TripComponent } from './trip/trip/trip.component';
 import { LoginComponent } from './login/login.component';
-import { CatchComponent } from './catch/catch/catch.component';
+import { CatchComponent } from './catch/catch.component';
 import { EditTripComponent } from './trip/edit-trip/edit-trip.component';
 
 const routes: Routes = [

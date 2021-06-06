@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { TripService } from 'src/app/service/trip.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Catch } from '../../model/models.model';
+import { Catch } from '../model/models.model';
+import { LoaderComponent } from '../loader/loader.component';  
+import { GoogleMapsModule } from '@angular/google-maps';
+import { Observable } from 'rxjs';
+
 
 
 
@@ -17,17 +20,40 @@ import { Catch } from '../../model/models.model';
 export class CatchComponent implements OnInit {
   catches:any;
   data:any;
-  tripId:any;
-  form!:any;
+  tripId!:String;
+  form!:FormGroup;
   submitted=false;
   submitted2=false;
   closeModal!:String;
-  closeModal2!:String;
-  modal:any;
   catch = new Catch();
-  uid:any; 
+  uid!:String; 
+  isLoading = false;
+  lat!:number;
+  lng!:number;
 
   constructor(private modalService:NgbModal, private tripService:TripService, private formBuilder: FormBuilder, private toastr: ToastrService, private route:ActivatedRoute, private router:Router) { }
+  
+  @ViewChild('mapContainer', { static: false }) gmap!: ElementRef;
+  map!: google.maps.Map;
+
+
+
+  mapInitializer() {
+    let coordinates = new google.maps.LatLng(this.lat, this.lng);
+
+    let mapOptions: google.maps.MapOptions = {
+     center: coordinates,
+     zoom: 8
+    };
+  
+    let marker = new google.maps.Marker({
+      position: coordinates,
+      map: this.map,
+    });
+    this.map = new google.maps.Map(this.gmap.nativeElement, 
+    mapOptions);
+    marker.setMap(this.map);
+  }
 
   updateCatchForm = new FormGroup({
     species: new FormControl('', Validators.required),
@@ -51,7 +77,7 @@ export class CatchComponent implements OnInit {
     return this.updateCatchForm.controls;
   }
 
-  getTripsData(uid:any, tripId:any) {
+  getTripsData(uid:String, tripId:String) {
     this.tripService.getCatches(uid, tripId).subscribe(res => {
       console.log(res);
       this.catches = res;
@@ -87,11 +113,10 @@ export class CatchComponent implements OnInit {
       this.getTripsData(this.uid, this.tripId);
       this.form.reset();
       this.submitted = false;
-      //this.resetFormData(this.form, this.submitted);
     });
   }
 
-  deleteCatch(uid:any, tripId:any, id:any) {
+  deleteCatch(uid:String, tripId:String, id:String) {
     this.tripService.deleteCatch(uid, tripId, id).subscribe(res => {
       this.data = res;
       this.toastr.error(JSON.stringify(this.data.code), JSON.stringify(this.data.message), {
@@ -104,9 +129,9 @@ export class CatchComponent implements OnInit {
 
   triggerModal(content:any, ariaLbl:String) {
     this.modalService.open(content, {ariaLabelledBy: ariaLbl.toString()}).result.then((res) => {
-      this.closeModal2 = `Closed with: ${res}`;
+      this.closeModal = `Closed with: ${res}`;
     }, (res) => {
-      this.closeModal2 = `Dismissed ${this.getDismissReason(res)}`;
+      this.closeModal = `Dismissed ${this.getDismissReason(res)}`;
     });
   }
 
@@ -120,8 +145,8 @@ export class CatchComponent implements OnInit {
     }
   }
 
-  getCatchData(id:any) {
-    this.tripService.getCatch(this.uid, this.tripId, id).subscribe(res => {
+  getCatchData(uid:String, tripId:String, id:String) {
+    this.tripService.getCatch(uid, tripId, id).subscribe(res => {
       this.data = res;
       this.catch = this.data;
       console.log(this.catch);
@@ -151,6 +176,62 @@ export class CatchComponent implements OnInit {
       this.getTripsData(this.uid, this.tripId);
       this.submitted2 = false;
       this.updateCatchForm.reset();
-        });
+    });
   }
+
+  // https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/getCurrentPosition
+
+
+  getLocation() {
+    if(navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        function success(pos){
+          let coord = pos.coords;
+          console.log('Your current position is:');
+          console.log(`Latitude : ${coord.latitude}`);
+          console.log(`Longitude: ${coord.longitude}`);
+          console.log(`More or less ${coord.accuracy} meters.`);
+          alert('Location accessed')
+        },
+        function error(err){
+          console.warn(`ERROR(${err.code}): ${err.message}`);
+          alert('User not allowed')
+        },
+        {timeout:10000}
+      );
+    } else {
+      console.log('Geolocation not supported');
+    }
+  }
+
+
+  getPosition(): Promise<any>
+  {
+    return new Promise((resolve, reject) => {
+
+      navigator.geolocation.getCurrentPosition(resp => {
+
+          resolve({lng: resp.coords.longitude, lat: resp.coords.latitude});
+          console.log(resp.coords);
+        },
+        err => {
+          reject(err);
+        });
+    });
+
+  }
+
+  setCoord() {
+    this.getPosition().then(pos => {
+      this.lat = pos.lat;
+      this.lng = pos.lng;
+      console.log(this.lat);
+      console.log(this.lng);
+      this.mapInitializer();
+    });
+    
+  }
+
+
+
 }

@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, provideRoutes, Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TOAST_CONFIG, ToastrConfig, IndividualConfig, ToastrService } from 'ngx-toastr';
+import { IndividualConfig, ToastrService } from 'ngx-toastr';
 
 import { CatchComponent } from './catch.component';
 
@@ -24,7 +24,7 @@ describe('CatchComponent', () => {
   };
   let config: Routes = [
     {
-        path: '', component: CatchComponent
+        path: 'trips/:tripId/catches', component: CatchComponent
     }
   ];
   const fakeActivatedRoute = {
@@ -50,6 +50,6 @@ describe('CatchComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
+  });  
 });
 
