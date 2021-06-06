@@ -42,6 +42,7 @@ export class CatchComponent implements OnInit {
   public coloursEnabled = false;
   public loadingTemplate!: TemplateRef<any>;
   public config = { animationType: ngxLoadingAnimationTypes.none, primaryColour: this.primaryColour, secondaryColour: this.secondaryColour, tertiaryColour: this.primaryColour, backdropBorderRadius: '3px' };
+  public show:boolean = false;
 
   constructor(private modalService:NgbModal, private tripService:TripService, private formBuilder: FormBuilder, private toastr: ToastrService, private route:ActivatedRoute, private router:Router) { }
   
@@ -51,6 +52,7 @@ export class CatchComponent implements OnInit {
 
 
   async mapInitializer(uid:String, tripId:String, id:String) {
+    this.show = true;
     await this.getCatchLocation(uid, tripId, id);
 
     if(this.catch.lat != null && this.catch.lat != "" && this.catch.lng != null && this.catch.lng != ""){
@@ -74,6 +76,14 @@ export class CatchComponent implements OnInit {
       this.map = new google.maps.Map(this.gmap.nativeElement, 
       mapOptions);
       marker.setMap(this.map);
+    }
+    else {
+      this.show = false;
+      this.toastr.error('Error', 'Catch has not been geolocated!',
+      {
+        timeOut: 3000,
+        progressBar: true,
+      });
     }
   }
 
@@ -235,6 +245,7 @@ export class CatchComponent implements OnInit {
   // https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/getCurrentPosition
   getPosition(): Promise<any>
   {
+    this.show = false;
     this.loading = true;
     return new Promise((resolve, reject) => {
 
