@@ -1,3 +1,4 @@
+//import {} from 'jasmine';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
@@ -41,10 +42,11 @@ describe('CatchComponent', () => {
     .compileComponents();
   });
 
-  beforeEach(() => {
-    CatchComponent.prototype.ngOnInit = () => {}
+  beforeEach(async () => {
+    //CatchComponent.prototype.ngOnInit = () => {}
     fixture = TestBed.createComponent(CatchComponent);
     component = fixture.componentInstance;
+    await component.ngOnInit;
     fixture.detectChanges();
   });
 

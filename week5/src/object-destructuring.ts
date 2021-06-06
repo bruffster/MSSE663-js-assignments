@@ -38,6 +38,7 @@ export const newObj = {
 export const {greeting, name} = { greeting: 'hello', name: 'taylor' }
 
 // construct statement here
+console.log(greeting + ", " + name + "!");
 export const stmt = `${greeting}, ${name}!`;
 console.log(stmt);
 // expected result: 'hello, taylor!'

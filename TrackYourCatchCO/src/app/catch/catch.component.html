@@ -4,7 +4,11 @@
 
   Second modal added to update the content of a catch already added
 -->
+<head>
+
+</head>
 <script src="//maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
+
 <div>
 <div class="table">
   <thead>
@@ -27,7 +31,8 @@
       <td>{{catch.location}}</td>
       <td>
         <button class="btn btn-primary btn-sm mx-auto" (click)="getCatchData(this.uid, this.tripId,catch._id);triggerModal(updateModalData, 'edit-catch-modal')">Edit</button>
-        <button class="btn btn-success btn-sm mx-auto" (click)="setCoord()">Get Location</button>
+        <button class="btn btn-success btn-sm mx-auto" (click)="updateCatchLocationData(catch._id);">Save GPS</button>
+        <button class="btn btn-info btn-sm mx-auto" (click)="mapInitializer(this.uid, this.tripId,catch._id)">Show Map</button>
         <button class="btn btn-danger btn-sm mx-auto" (click)="deleteCatch(catch._uid, catch._tripId, catch._id)" >Delete</button>
       </td>
     </tr>
@@ -154,5 +159,11 @@
     </form>
   </div>
 </ng-template>
-<app-loader [loader]="isLoading"></app-loader>
+<br><br>
 <div #mapContainer id="map"></div>
+
+<div class="loading">
+  <ngx-loading [show]="loading" [config]="{animationType: ngxLoadingAnimationTypes.circleSwish, primaryColour: primaryColour, backdropBorderRadius: '3px'}"
+    [template]="loadingTemplate"></ngx-loading>
+</div>
+

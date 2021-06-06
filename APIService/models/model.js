@@ -62,6 +62,14 @@ const CatchSchema = new Schema({
     type: String,
     required: true
   },
+  lat: {
+    type: Number,
+    required: false
+  },
+  lng: {
+    type: Number,
+    required: false
+  },
   _uid: {
     type: String,
     required: true
@@ -77,9 +85,20 @@ const CatchSchema = new Schema({
 
 const Catch = mongoose.model('catches', CatchSchema);
 
+// settings
+const SettingsSchema = new Schema({
+  googleapikey: {
+    type: String,
+    required: true
+  }
+});
+
+const Settings = mongoose.model('settings', SettingsSchema);
+
 
 module.exports = {
   OktaUser: OktaUser,
   Trip: Trip,
   Catch: Catch,
+  Settings: Settings,
 }

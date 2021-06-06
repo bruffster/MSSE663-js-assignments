@@ -1,16 +1,16 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { TripService } from 'src/app/service/trip.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Catch } from '../model/models.model';
-import { LoaderComponent } from '../loader/loader.component';  
+import { Catch, Settings } from '../model/models.model';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { Observable } from 'rxjs';
+import { ngxLoadingAnimationTypes } from 'ngx-loading';
 
-
-
+const PrimaryWhite = '#ffffff';
+const SecondaryGrey = '#ccc';
 
 @Component({
   selector: 'app-catch',
@@ -27,9 +27,21 @@ export class CatchComponent implements OnInit {
   closeModal!:String;
   catch = new Catch();
   uid!:String; 
-  isLoading = false;
   lat!:number;
   lng!:number;
+  angular: any;
+  googleapikey!: String;
+  settingsdata:any;
+  locationdata:any;
+  coordinate:any;
+  //https://www.npmjs.com/package/ngx-loading
+  public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
+  public loading = false;
+  public primaryColour = PrimaryWhite;
+  public secondaryColour = SecondaryGrey;
+  public coloursEnabled = false;
+  public loadingTemplate!: TemplateRef<any>;
+  public config = { animationType: ngxLoadingAnimationTypes.none, primaryColour: this.primaryColour, secondaryColour: this.secondaryColour, tertiaryColour: this.primaryColour, backdropBorderRadius: '3px' };
 
   constructor(private modalService:NgbModal, private tripService:TripService, private formBuilder: FormBuilder, private toastr: ToastrService, private route:ActivatedRoute, private router:Router) { }
   
@@ -38,21 +50,31 @@ export class CatchComponent implements OnInit {
 
 
 
-  mapInitializer() {
-    let coordinates = new google.maps.LatLng(this.lat, this.lng);
+  async mapInitializer(uid:String, tripId:String, id:String) {
+    await this.getCatchLocation(uid, tripId, id);
 
-    let mapOptions: google.maps.MapOptions = {
-     center: coordinates,
-     zoom: 8
-    };
-  
-    let marker = new google.maps.Marker({
-      position: coordinates,
-      map: this.map,
-    });
-    this.map = new google.maps.Map(this.gmap.nativeElement, 
-    mapOptions);
-    marker.setMap(this.map);
+    if(this.catch.lat != null && this.catch.lat != "" && this.catch.lng != null && this.catch.lng != ""){
+      let coordinates = new google.maps.LatLng(this.catch.lat, this.catch.lng);
+
+      let mapOptions: google.maps.MapOptions = {
+       center: coordinates,
+       zoom: 16,
+       mapTypeId:google.maps.MapTypeId.TERRAIN,
+       mapTypeControl: true,
+       mapTypeControlOptions: {
+         style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+        }
+      };
+    
+      let marker = new google.maps.Marker({
+        position: coordinates,
+        map: this.map,
+        label: this.catch.species,
+      });
+      this.map = new google.maps.Map(this.gmap.nativeElement, 
+      mapOptions);
+      marker.setMap(this.map);
+    }
   }
 
   updateCatchForm = new FormGroup({
@@ -62,7 +84,13 @@ export class CatchComponent implements OnInit {
     location: new FormControl('', [Validators.required]),
   });
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    await this.getSettings();
+    let script = document.createElement("script");
+    script.type = "text/javascript";
+    script.async = true;
+    script.src = "https://maps.googleapis.com/maps/api/js?key=" + this.googleapikey;
+    document.head.appendChild(script);
     this.uid = JSON.parse(localStorage.getItem('okta-token-storage') || '{}').idToken.claims.sub;
     this.tripId = this.route.snapshot.params.tripId;
     this.createForm();
@@ -75,6 +103,11 @@ export class CatchComponent implements OnInit {
 
   get f1() {
     return this.updateCatchForm.controls;
+  }
+
+   async getSettings() {
+    this.settingsdata = await this.tripService.getSettings().toPromise();
+    this.googleapikey = JSON.stringify(this.settingsdata.googleapikey).replace(/['"]+/g, '');
   }
 
   getTripsData(uid:String, tripId:String) {
@@ -159,6 +192,11 @@ export class CatchComponent implements OnInit {
     });
   }
 
+  async getCatchLocation(uid:String, tripId:String, id:String) {
+    this.locationdata = await this.tripService.getCatch(uid, tripId, id).toPromise();
+    this.catch = this.locationdata;
+  }
+
   updateCatchData(id:any) {
     this.submitted2 = true;
 
@@ -179,59 +217,44 @@ export class CatchComponent implements OnInit {
     });
   }
 
-  // https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/getCurrentPosition
+  async updateCatchLocationData(id:any) {
+    await this.getCoord();
+    this.tripService.updateCatchLocation(this.uid, this.tripId, id, this.coordinate).subscribe(res => {
+      this.data = res;
+      this.toastr.success(JSON.stringify(this.data.code), JSON.stringify(this.data.message), {
+        timeOut: 3000,
+        progressBar: true,
+      });
 
-
-  getLocation() {
-    if(navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        function success(pos){
-          let coord = pos.coords;
-          console.log('Your current position is:');
-          console.log(`Latitude : ${coord.latitude}`);
-          console.log(`Longitude: ${coord.longitude}`);
-          console.log(`More or less ${coord.accuracy} meters.`);
-          alert('Location accessed')
-        },
-        function error(err){
-          console.warn(`ERROR(${err.code}): ${err.message}`);
-          alert('User not allowed')
-        },
-        {timeout:10000}
-      );
-    } else {
-      console.log('Geolocation not supported');
-    }
+      this.getTripsData(this.uid, this.tripId);
+      this.submitted2 = false;
+      this.updateCatchForm.reset();
+    });
   }
 
-
+  // https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/getCurrentPosition
   getPosition(): Promise<any>
   {
+    this.loading = true;
     return new Promise((resolve, reject) => {
 
       navigator.geolocation.getCurrentPosition(resp => {
 
           resolve({lng: resp.coords.longitude, lat: resp.coords.latitude});
           console.log(resp.coords);
+          this.loading = false;
         },
         err => {
+          this.loading = false;
           reject(err);
         });
     });
 
   }
-
-  setCoord() {
-    this.getPosition().then(pos => {
-      this.lat = pos.lat;
-      this.lng = pos.lng;
-      console.log(this.lat);
-      console.log(this.lng);
-      this.mapInitializer();
+  async getCoord() {
+    await this.getPosition().then(pos => {
+      this.coordinate = {lat: pos.lat, lng: pos.lng};
     });
     
   }
-
-
-
 }

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 
-const { OktaUser, Trip, Catch } = require ('../models/model');
+const { OktaUser, Trip, Catch, Settings } = require ('../models/model');
 
 
 // Get All Trips for User
@@ -112,7 +112,7 @@ router.delete('/api/:uid/trips/:tripId/catches/:id', (req, res) => {
   });
 });
 
-// Get Single Trip
+// Get Single Catch
 router.get('/api/:uid/trips/:tripId/catches/:id', (req, res) => {
   Catch.findById(req.params.id, (err, data) => {
     if(!err) {
@@ -123,7 +123,7 @@ router.get('/api/:uid/trips/:tripId/catches/:id', (req, res) => {
   });
 });
 
-// Update Trip
+// Update Catch
 router.put('/api/:uid/trips/:tripId/catches/edit/:id', (req, res) => {
   const catchData = {
     species: req.body.species,
@@ -134,6 +134,21 @@ router.put('/api/:uid/trips/:tripId/catches/edit/:id', (req, res) => {
   Catch.findByIdAndUpdate(req.params.id, { $set:catchData }, { new:true }, (err, data) => {
     if(!err) {
       res.status(200).json({ code: 200, message: 'Catch Updated Successfully', updateTrip: data });
+    } else {
+      console.log(err);
+    }
+  });
+});
+
+// Update Catch Location
+router.put('/api/:uid/trips/:tripId/catches/edit/location/:id', (req, res) => {
+  const catchLocationData = {
+    lat: req.body.lat,
+    lng: req.body.lng,
+  };
+  Catch.findByIdAndUpdate(req.params.id, { $set:catchLocationData }, { new:true }, (err, data) => {
+    if(!err) {
+      res.status(200).json({ code: 200, message: 'Catch Location Updated Successfully', updateTrip: data });
     } else {
       console.log(err);
     }
@@ -160,7 +175,19 @@ router.get('/api/okta/:uid', (req, res) => {
     } else {
       console.log(err);
     }
-  })
+  });
+});
+
+// Get Google API Key
+router.get('/api/settings/', (req, res) => {
+  Settings.findOne({}, (err, data) => {
+    if(!err) {
+      console.log(data);
+      res.send(data);
+    } else {
+      console.log(err);
+    }
+  });
 });
 
 module.exports = router;  

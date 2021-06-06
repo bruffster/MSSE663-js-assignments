@@ -30,7 +30,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDialogModule } from '@angular/material/dialog';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { LoaderComponent } from './loader/loader.component';
+
+import { NgxLoadingModule } from 'ngx-loading';
 
 
 
@@ -65,7 +66,6 @@ const appRoutes:Routes = [
     EditTripComponent,
     LoginComponent,
     CatchComponent,
-    LoaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,9 +82,10 @@ const appRoutes:Routes = [
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
-    NgbModule
+    NgbModule,
+    NgxLoadingModule.forRoot({})
   ],
-  exports:[LoaderComponent],
+  exports:[],
   providers: [{ provide: OKTA_CONFIG, useValue: oktaConfig }],
   bootstrap: [AppComponent]
 })
