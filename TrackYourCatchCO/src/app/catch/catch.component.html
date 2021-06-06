@@ -160,7 +160,10 @@
   </div>
 </ng-template>
 <br><br>
-<div #mapContainer id="map"></div>
+<ng-container *ngIf="show">
+  <div #mapContainer id="map"></div>
+</ng-container>
+
 
 <div class="loading">
   <ngx-loading [show]="loading" [config]="{animationType: ngxLoadingAnimationTypes.circleSwish, primaryColour: primaryColour, backdropBorderRadius: '3px'}"
