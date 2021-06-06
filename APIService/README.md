@@ -30,6 +30,9 @@ This set of files provide the API service to facilitate data being sent to and f
 - v.1
   - Handles CRUD operations for the TrackYourCatchCO site
 
+- v.2
+  - Added routes for more integrations involving catches
+
 ## Contact information
 
 - Name: Benjamin Bruffey

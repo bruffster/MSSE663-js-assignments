@@ -49,8 +49,13 @@ It provides a way to create an account, login, and add catches as well as search
 ## Version History
 
 - v.1
-  - Base site functionality added, login feature, adding, editing, searching, deleting trips.
+  - Base site functionality added, login feature, adding, editing, deleting trips.
   - Creating Accounts, updating accounts (handled on the Okta side)
+
+- v.2
+  - Added catch functionality (CRUD)
+  - Added geolocation for catch functionality using HTML5 geolocation
+  - Added loading mask while geolocation is occuring
 
 ## Contact information
 
