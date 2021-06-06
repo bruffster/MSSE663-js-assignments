@@ -6,21 +6,22 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TripComponent } from './trip/trip/trip.component';
+
 import { NavbarComponent } from './navbar/navbar/navbar.component';
 
 import { HttpClientModule } from '@angular/common/http';
+
+import { TripComponent } from './trip/trip/trip.component';
 import { AddTripComponent } from './trip/add-trip/add-trip.component';
+import { EditTripComponent } from './trip/edit-trip/edit-trip.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { EditTripComponent } from './trip/edit-trip/edit-trip.component';
 
 import { OKTA_CONFIG, OktaAuthModule } from '@okta/okta-angular';
 import { OktaAuthOptions } from '@okta/okta-auth-js';
 import { LoginComponent } from './login/login.component';
 
-import { CatchComponent } from './catch/catch/catch.component';
-import { EditCatchComponent } from './catch/edit-catch/edit-catch.component';
+import { CatchComponent } from './catch/catch.component';
 
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
@@ -29,6 +30,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDialogModule } from '@angular/material/dialog';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+import { NgxLoadingModule } from 'ngx-loading';
+
+
 
 const oktaConfig: OktaAuthOptions = {
   issuer: 'https://dev-41479669.okta.com/oauth2/default',
@@ -61,7 +66,6 @@ const appRoutes:Routes = [
     EditTripComponent,
     LoginComponent,
     CatchComponent,
-    EditCatchComponent,
   ],
   imports: [
     BrowserModule,
@@ -78,8 +82,10 @@ const appRoutes:Routes = [
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
-    NgbModule
+    NgbModule,
+    NgxLoadingModule.forRoot({})
   ],
+  exports:[],
   providers: [{ provide: OKTA_CONFIG, useValue: oktaConfig }],
   bootstrap: [AppComponent]
 })
