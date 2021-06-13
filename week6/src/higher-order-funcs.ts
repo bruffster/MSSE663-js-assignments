@@ -39,8 +39,10 @@ export interface ThingInterface {
 
 export const filterCallback = (key: string) => (thingToSearch: ThingInterface) => (thingToSearch.id === Number(key) || thingToSearch.name === key);
 
-export const baseFilter = filterCallback('2');
+export const baseFilter = (key: string) => filterCallback(key);
 
-export const searchedThing = mappedThings.filter(baseFilter)[0];
+export const filterApplied = (key: string) => mappedThings.filter(baseFilter(key))[0];
+
+export const searchedThing = filterApplied('2');
 
 //console.log(searchedThing);
