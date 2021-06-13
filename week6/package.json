@@ -1,12 +1,13 @@
 {
-  "name": "week3",
+  "name": "week6",
   "version": "1.0.0",
-  "description": "Week 3 assignments",
+  "description": "Week 6 assignments",
   "main": "index.js",
   "scripts": {
     "lint": "eslint **/*.ts --fix",
     "test": "mocha -r ts-node/register src/**/*.spec.ts",
-    "dev": "ts-node src/spread.ts"
+    "dev1": "ts-node src/higher-order-funcs.ts",
+    "dev2": "ts-node src/currying.ts"
   },
   "author": "",
   "license": "ISC",
