@@ -20,7 +20,7 @@ export const callback = (thing: string, id: number) => ({id: id + 1, name: thing
 
 // create map here
 export const mappedThings = things.map(callback);
-console.log(mappedThings);
+//console.log(mappedThings);
 
 /**
  * #2 Higher order then curry.
