@@ -15,7 +15,11 @@ export class TripComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    this.getTripsData(JSON.parse(localStorage.getItem('okta-token-storage') || '{}').idToken.claims.sub);
+    try {
+      await this.getTripsData(JSON.parse(localStorage.getItem('okta-token-storage') || '{}').idToken.claims.sub);
+    } catch (error) {
+      //console.error(error);
+    }
   }
 
   getTripsData(uid:String) {
@@ -32,7 +36,11 @@ export class TripComponent implements OnInit {
         timeOut: 3000,
         progressBar: true
       });
-      this.getTripsData(JSON.parse(localStorage.getItem('okta-token-storage') || '{}').idToken.claims.sub);
+      try {
+        this.getTripsData(JSON.parse(localStorage.getItem('okta-token-storage') || '{}').idToken.claims.sub);
+      } catch (error) {
+        
+      }
     });
   }
 }

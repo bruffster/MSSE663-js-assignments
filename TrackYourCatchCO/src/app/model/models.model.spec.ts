@@ -1,7 +1,27 @@
-import { Trip } from './models.model';
+import { Trip, OktaUser, Settings, Catch } from './models.model';
 
-describe('Trip', () => {
-  it('should create an instance', () => {
-    expect(new Trip()).toBeTruthy();
+describe('Model tests', () => {
+  describe('Trip', () => {
+    it('should create an instance', () => {
+      expect(new Trip()).toBeTruthy();
+    });
+  });
+  
+  describe('OktaUser', () => {
+    it('should create an instance', () => {
+      expect(new OktaUser()).toBeTruthy();
+    });
+  });
+  
+  describe('Catch', () => {
+    it('should create an instance', () => {
+      expect(new Catch()).toBeTruthy();
+    });
+  });
+  
+  describe('Settings', () => {
+    it('should create an instance', () => {
+      expect(new Settings()).toBeTruthy();
+    });
   });
 });
