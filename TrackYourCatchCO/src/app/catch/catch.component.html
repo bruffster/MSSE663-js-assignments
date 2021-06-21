@@ -32,24 +32,13 @@
       <td>
         <button class="btn btn-primary btn-sm mx-auto" (click)="getCatchData(this.uid, this.tripId,catch._id);triggerModal(updateModalData, 'edit-catch-modal')">Edit</button>
         <button class="btn btn-success btn-sm mx-auto" (click)="updateCatchLocationData(catch._id);">Save GPS</button>
-        <button class="btn btn-info btn-sm mx-auto" (click)="mapInitializer(this.uid, this.tripId,catch._id)">Show Map</button>
+        <button class="btn btn-info btn-sm mx-auto" (click)="mapInitializer(this.uid, this.tripId, catch._id)" id="btn_{{catch._id}}">Show Map</button>
         <button class="btn btn-danger btn-sm mx-auto" (click)="deleteCatch(catch._uid, catch._tripId, catch._id)" >Delete</button>
       </td>
     </tr>
   </tbody>
 </div>
   <button class="btn btn-primary" (click)="triggerModal(addModalData, 'add-catch-modal')">Add Catch</button>
-
-  <!--
-  <ng-container #addModalData>
-    <app-add-catch></app-add-catch>
-  </ng-container>
-
-  <ng-container #updateModalData>
-    <app-edit-catch></app-edit-catch>
-
-  </ng-container>
--->
 </div>
 
 
@@ -97,6 +86,16 @@
         <div *ngIf="submitted && f.location.errors" class="invalid-feedback">
           <div *ngIf="f.location.errors.required">Location is required</div>
         </div>
+      </div>
+
+      <div class="form-group">
+        <label for="length">Latitude</label>
+        <input type="number" formControlName="lat" class="form-control" placeholder="Enter Latitude. . .">
+      </div>
+
+      <div class="form-group">
+        <label for="length">Longitude</label>
+        <input type="number" formControlName="lng" class="form-control" placeholder="Enter Longitude. . .">
       </div>
   
       <div class="modal-footer form-group">
@@ -151,6 +150,16 @@
         <div *ngIf="submitted2 && f1.location.errors" class="invalid-feedback">
           <div *ngIf="f1.location.errors.required">Location is required</div>
         </div>
+      </div>
+
+      <div class="form-group">
+        <label for="length">Latitude</label>
+        <input type="number" formControlName="lat" class="form-control" placeholder="Enter Latitude. . .">
+      </div>
+
+      <div class="form-group">
+        <label for="length">Longitude</label>
+        <input type="number" formControlName="lng" class="form-control" placeholder="Enter Longitude. . .">
       </div>
   
       <div class="modal-footer form-group">

@@ -18,7 +18,7 @@ export class AddTripComponent implements OnInit {
   data:any;
   //userinfo:any
   uid!:String
-  constructor(private tripService:TripService, private formBuilder: FormBuilder, private toastr: ToastrService, private router: Router, private oktaAuth:OktaAuthService) { }
+  constructor(private tripService:TripService, private formBuilder: FormBuilder, private toastr: ToastrService, private router: Router) { }
 
   async createForm() {
     this.form = this.formBuilder.group({
@@ -43,7 +43,11 @@ export class AddTripComponent implements OnInit {
       return;
     }
 
-    this.form.value['_uid'] = JSON.parse(localStorage.getItem('okta-token-storage') || '{}').idToken.claims.sub;
+    try {
+      this.form.value['_uid'] = JSON.parse(localStorage.getItem('okta-token-storage') || '{}').idToken.claims.sub;
+    } catch (error) {
+      //console.log(error);
+    }
     this.tripService.insertTrip(this.form.value).subscribe(res => {
       this.data = res;
       this.toastr.success(JSON.stringify(this.data.code), JSON.stringify(this.data.message),

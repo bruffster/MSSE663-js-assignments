@@ -89,6 +89,8 @@ router.post('/api/:uid/trips/:tripId/catch/add', (req, res) => {
     weight: req.body.weight,
     length: req.body.length,
     location: req.body.location,
+    lat: req.body.lat,
+    lng: req.body.lng,
     _uid: req.body._uid,
     _tripId: req.body._tripId
   });
@@ -129,7 +131,9 @@ router.put('/api/:uid/trips/:tripId/catches/edit/:id', (req, res) => {
     species: req.body.species,
     length: req.body.length,
     weight: req.body.weight,
-    location: req.body.location
+    location: req.body.location,
+    lat: req.body.lat,
+    lng: req.body.lng
   };
   Catch.findByIdAndUpdate(req.params.id, { $set:catchData }, { new:true }, (err, data) => {
     if(!err) {
