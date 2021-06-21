@@ -57,6 +57,12 @@ It provides a way to create an account, login, and add catches as well as search
   - Added geolocation for catch functionality using HTML5 geolocation
   - Added loading mask while geolocation is occuring
 
+- v.3
+  - Added ability to add lat/long manually on catches
+  - Added unit tests
+  - Added login e2e test (with test user account)
+  - Updated API service to account for the manual lat/long entry
+
 ## Contact information
 
 - Name: Benjamin Bruffey

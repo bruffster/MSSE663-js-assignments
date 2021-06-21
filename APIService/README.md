@@ -33,6 +33,9 @@ This set of files provide the API service to facilitate data being sent to and f
 - v.2
   - Added routes for more integrations involving catches
 
+- v.3
+  - Updated some routes to account for manual entry of lat/long on adding and updating catches
+
 ## Contact information
 
 - Name: Benjamin Bruffey
