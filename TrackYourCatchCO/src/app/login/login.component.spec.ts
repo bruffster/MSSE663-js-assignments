@@ -1,6 +1,7 @@
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideRoutes, Router, Routes } from '@angular/router';
+import { By } from '@angular/platform-browser';
+import { provideRoutes, Router, RouterModule, Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { OKTA_CONFIG, OktaAuthModule, OktaAuthService, OktaAuthGuard } from '@okta/okta-angular';
 import { OktaAuthOptions } from '@okta/okta-auth-js';
@@ -23,6 +24,7 @@ describe('LoginComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes([]),
+        RouterModule
       ],
       declarations: [ LoginComponent ],
       providers: [HttpClient, HttpHandler,OktaAuthService, OktaAuthGuard, OktaAuthModule, { provide: OKTA_CONFIG, useValue: oktaConfig },provideRoutes(config), {provide: LoginComponent, userClass: LoginComponent}],
@@ -36,8 +38,11 @@ describe('LoginComponent', () => {
     fixture.detectChanges();
   });
 
+  afterEach(async () => {
+    await component.widget.remove();
+  })
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  
 });

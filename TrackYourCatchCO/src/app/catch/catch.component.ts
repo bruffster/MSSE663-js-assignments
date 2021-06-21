@@ -34,6 +34,7 @@ export class CatchComponent implements OnInit {
   settingsdata:any;
   locationdata:any;
   coordinate:any;
+  prevMapId!:String;
   //https://www.npmjs.com/package/ngx-loading
   public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
   public loading = false;
@@ -49,42 +50,73 @@ export class CatchComponent implements OnInit {
   @ViewChild('mapContainer', { static: false }) gmap!: ElementRef;
   map!: google.maps.Map;
 
-
+  async ngOnInit(): Promise<void> {
+    await this.getSettings();
+    let script = document.createElement("script");
+    script.type = "text/javascript";
+    script.async = true;
+    script.src = "https://maps.googleapis.com/maps/api/js?key=" + this.googleapikey;
+    document.head.appendChild(script);
+    try {
+      this.uid = JSON.parse(localStorage.getItem('okta-token-storage') || '{}').idToken.claims.sub;
+    } catch (error) {
+      //console.log(error);
+    }
+    
+    this.tripId = this.route.snapshot.params.tripId;
+    this.createForm();
+    this.getTripsData(this.uid, this.tripId);
+  }
 
   async mapInitializer(uid:String, tripId:String, id:String) {
-    this.show = true;
-    await this.getCatchLocation(uid, tripId, id);
-
-    if(this.catch.lat != null && this.catch.lat != "" && this.catch.lng != null && this.catch.lng != ""){
-      let coordinates = new google.maps.LatLng(this.catch.lat, this.catch.lng);
-
-      let mapOptions: google.maps.MapOptions = {
-       center: coordinates,
-       zoom: 16,
-       mapTypeId:google.maps.MapTypeId.TERRAIN,
-       mapTypeControl: true,
-       mapTypeControlOptions: {
-         style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
-        }
-      };
-    
-      let marker = new google.maps.Marker({
-        position: coordinates,
-        map: this.map,
-        label: this.catch.species,
-      });
-      this.map = new google.maps.Map(this.gmap.nativeElement, 
-      mapOptions);
-      marker.setMap(this.map);
-    }
-    else {
+    if(id !== this.prevMapId && this.prevMapId != null && this.prevMapId != "") {
       this.show = false;
-      this.toastr.error('Error', 'Catch has not been geolocated!',
-      {
-        timeOut: 3000,
-        progressBar: true,
-      });
+      let btnPrev = document.getElementById('btn_'+this.prevMapId)!;
+      btnPrev.innerHTML = 'Show Map';
     }
+    this.prevMapId = id;
+    if(this.show === false) {
+      let btn = document.getElementById('btn_'+id)!;
+      btn.innerHTML = 'Hide Map';
+      this.show = true;
+      await this.getCatchLocation(uid, tripId, id);
+  
+      if(this.catch.lat != null && this.catch.lat != "" && this.catch.lng != null && this.catch.lng != ""){
+        let coordinates = new google.maps.LatLng(this.catch.lat, this.catch.lng);
+  
+        let mapOptions: google.maps.MapOptions = {
+         center: coordinates,
+         zoom: 16,
+         mapTypeId:google.maps.MapTypeId.TERRAIN,
+         mapTypeControl: true,
+         mapTypeControlOptions: {
+           style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+          }
+        };
+      
+        let marker = new google.maps.Marker({
+          position: coordinates,
+          map: this.map,
+          label: this.catch.species,
+        });
+        this.map = new google.maps.Map(this.gmap.nativeElement, 
+        mapOptions);
+        marker.setMap(this.map);
+      }
+      else {
+        this.show = false;
+        this.toastr.error('Error', 'Catch has not been geolocated!',
+        {
+          timeOut: 3000,
+          progressBar: true,
+        });
+      }
+    } else {
+      let btn = document.getElementById('btn_'+id)!;
+      btn.innerHTML = 'Show Map';
+      this.show = false;
+    }
+
   }
 
   updateCatchForm = new FormGroup({
@@ -93,19 +125,6 @@ export class CatchComponent implements OnInit {
     weight: new FormControl('', Validators.required),
     location: new FormControl('', [Validators.required]),
   });
-
-  async ngOnInit(): Promise<void> {
-    await this.getSettings();
-    let script = document.createElement("script");
-    script.type = "text/javascript";
-    script.async = true;
-    script.src = "https://maps.googleapis.com/maps/api/js?key=" + this.googleapikey;
-    document.head.appendChild(script);
-    this.uid = JSON.parse(localStorage.getItem('okta-token-storage') || '{}').idToken.claims.sub;
-    this.tripId = this.route.snapshot.params.tripId;
-    this.createForm();
-    this.getTripsData(this.uid, this.tripId);
-  }
 
   get f() {
     return this.form.controls;
@@ -132,7 +151,9 @@ export class CatchComponent implements OnInit {
       species: ['', Validators.required],
       weight: ['', Validators.required],
       length: ['', Validators.required],
-      location: ['', Validators.required]
+      location: ['', Validators.required],
+      lat: [null],
+      lng: [null]
     });
   }
 
@@ -160,6 +181,8 @@ export class CatchComponent implements OnInit {
   }
 
   deleteCatch(uid:String, tripId:String, id:String) {
+    this.show = false;
+    this.prevMapId = "";
     this.tripService.deleteCatch(uid, tripId, id).subscribe(res => {
       this.data = res;
       this.toastr.error(JSON.stringify(this.data.code), JSON.stringify(this.data.message), {
@@ -197,7 +220,9 @@ export class CatchComponent implements OnInit {
         species: new FormControl(this.catch.species, Validators.required),
         length: new FormControl(this.catch.length, [Validators.required]),
         weight: new FormControl(this.catch.weight, Validators.required),
-        location: new FormControl(this.catch.location, Validators.required)
+        location: new FormControl(this.catch.location, Validators.required),
+        lat: new FormControl(this.catch.lat),
+        lng: new FormControl(this.catch.lng)
       });
     });
   }

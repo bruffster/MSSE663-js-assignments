@@ -1,6 +1,6 @@
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { provideRoutes, Router, RouterModule, Routes } from '@angular/router';
 import { IndividualConfig, ToastrService } from 'ngx-toastr';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -10,6 +10,17 @@ import { OKTA_CONFIG,OktaAuthService } from '@okta/okta-angular';
 import { OktaAuthOptions } from '@okta/okta-auth-js';
 
 describe('AddTripComponent', () => {
+
+  const testTripData = {
+    created_at: "2021-05-23T23:59:18.977Z",
+    date: "2021-05-29T00:00:00.000Z",
+    location: "Yampa",
+    tripName: "Yampa",
+    updated_at: "2021-05-23T23:59:18.977Z",
+    _id: "60aaec56b96ccb51925c7f55",
+    _uid: "00uqkfl9cbeaa0Fq65d6"
+  };
+
   let component: AddTripComponent;
   let fixture: ComponentFixture<AddTripComponent>;
 
@@ -36,25 +47,105 @@ describe('AddTripComponent', () => {
     clientId: '0oapny2dw50GFpPsl5d6',
     redirectUri: window.location.origin + '/callback'
   };
+
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
+    await localStorage.setItem('okta-token-storage', '{{"idToken":{"claims":{"sub":"00uqkfl9cbeaa0Fq65d6"},},}}');  
+  });
+
+  beforeEach(() => {
+    localStorage.setItem('okta-token-storage', '{{"idToken":{"claims":{"sub":"00uqkfl9cbeaa0Fq65d6"},},}}');  
+    TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes([]),
+        ReactiveFormsModule
       ],
       declarations: [ AddTripComponent ],
-      providers: [HttpHandler, HttpClient, FormBuilder,{ provide: ToastrService, useValue: toastrService }, provideRoutes(config), OktaAuthService, { provide: OKTA_CONFIG, useValue: oktaConfig }]
+      providers: [HttpHandler, HttpClient, FormBuilder,{ provide: ToastrService, useValue: toastrService }, provideRoutes(config), { provide: OKTA_CONFIG, useValue: oktaConfig }]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
+    localStorage.setItem('okta-token-storage', '{{"idToken":{"claims":{"sub":"00uqkfl9cbeaa0Fq65d6"},},}}');  
     fixture = TestBed.createComponent(AddTripComponent);
     component = fixture.componentInstance;
+    const fb = new FormBuilder();
+    component.form = fb.group({
+      tripName: ['', Validators.required],
+      location: ['', Validators.required],
+      date: ['', Validators.required],
+    });
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('Validation tests', () => {
+    it('trip name field validity', () => {
+      const tripName = component.form.controls['tripName'];
+      expect(tripName.valid).toBeFalsy();
+    });  
+    
+    it('location field validity', () => {
+      const location = component.form.controls['location'];
+      expect(location.valid).toBeFalsy();
+    });  
+    
+    it('date field validity', () => {
+      const date = component.form.controls['date'];
+      expect(date.valid).toBeFalsy();
+    });
+  });
+
+
+  describe('Error tests', () => {
+    it('trip name errors', () => {
+      const tripName = component.form.controls['tripName'];
+      const errors = tripName.errors || {};
+      expect(errors['required']).toBeTruthy();
+    });
+
+    it('location errors', () => {
+      const location = component.form.controls['location'];
+      const errors = location.errors || {};
+      expect(errors['required']).toBeTruthy();
+    });
+
+    it('date errors', () => {
+      const date = component.form.controls['date'];
+      const errors = date.errors || {};
+      expect(errors['required']).toBeTruthy();
+    });
+  });
+
+
+  describe('Fix validation and error tests', () => {
+    it('trip name fix validation and errors', () => {
+      const tripName = component.form.controls['tripName'];
+      tripName.setValue('Yampa');
+      const errors = tripName.errors || {};
+      expect(errors['required']).toBeFalsy();
+      expect(tripName.valid).toBeTruthy();
+    });
+
+    it('location fix validation and errors', () => {
+      const location = component.form.controls['location'];
+      location.setValue('Yampa');
+      const errors = location.errors || {};
+      expect(errors['required']).toBeFalsy();
+      expect(location.valid).toBeTruthy();
+    });
+
+    it('date fix validation and errors', () => {
+      const date = component.form.controls['date'];
+      date.setValue('2021-05-29T00:00:00.000Z');
+      const errors = date.errors || {};
+      expect(errors['required']).toBeFalsy();
+      expect(date.valid).toBeTruthy();
+    });
+  });
+
 });
 
