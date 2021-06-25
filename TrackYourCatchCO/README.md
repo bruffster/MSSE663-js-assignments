@@ -2,6 +2,14 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.11.
 
+## Features
+
+1. User Registration/Login/Authentication (via Okta) - integrated okta authentication for user registration and signin.  Utilized the okta signin widget to make it so user doesn't need to leave app.
+2. Adding Fishing Trips​ - CRUD, user can add/view/update/delete trips
+3. Adding Catches to Trips​ - CRUD, user can add/view/update/delete catches from a trip
+4. Geolocation of a catch​ - the user can use the geolocation api to get the latitude and longitude of a catch
+5. Displaying a map with a pin for the geolocated catch - once a catch has a latitude and longitude, a google map api is used to show the catch on a map
+
 ## Node and NPM Versions
 
 - Node: v14.16.1
@@ -62,6 +70,13 @@ It provides a way to create an account, login, and add catches as well as search
   - Added unit tests
   - Added login e2e test (with test user account)
   - Updated API service to account for the manual lat/long entry
+
+- v.4
+  - updated tests
+  - ran ng lint and fixed all issues
+  - tweaked instances were subscribes were used to verify the completed
+  - fixed bugs involving dates (was showing a day behind in the UI)
+  - fixed hide/show text of the map button
 
 ## Contact information
 
