@@ -6,19 +6,19 @@ describe('Model tests', () => {
       expect(new Trip()).toBeTruthy();
     });
   });
-  
+
   describe('OktaUser', () => {
     it('should create an instance', () => {
       expect(new OktaUser()).toBeTruthy();
     });
   });
-  
+
   describe('Catch', () => {
     it('should create an instance', () => {
       expect(new Catch()).toBeTruthy();
     });
   });
-  
+
   describe('Settings', () => {
     it('should create an instance', () => {
       expect(new Settings()).toBeTruthy();

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ToastrModule } from 'ngx-toastr'
+import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -41,21 +41,20 @@ const oktaConfig: OktaAuthOptions = {
   redirectUri: window.location.origin + '/callback'
 };
 
-
-const appRoutes:Routes = [
+const appRoutes: Routes = [
   {
-    path: '', component:TripComponent
+    path: '', component: TripComponent
   },
   {
-    path: 'add-trip', component:AddTripComponent
+    path: 'add-trip', component: AddTripComponent
   },
   {
-    path: 'edit/:id', component:EditTripComponent
+    path: 'edit/:id', component: EditTripComponent
   },
   {
-    path: 'trips/:tripId/catches', component:CatchComponent
+    path: 'trips/:tripId/catches', component: CatchComponent
   }
-]
+];
 
 @NgModule({
   declarations: [
@@ -85,7 +84,7 @@ const appRoutes:Routes = [
     NgbModule,
     NgxLoadingModule.forRoot({})
   ],
-  exports:[],
+  exports: [],
   providers: [{ provide: OKTA_CONFIG, useValue: oktaConfig }],
   bootstrap: [AppComponent]
 })
