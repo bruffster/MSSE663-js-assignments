@@ -14,7 +14,7 @@
       <td>{{i + 1}}</td>
       <td>{{trip.tripName}}</td>
       <td>{{trip.location}}</td>
-      <td>{{trip.date}}</td>
+      <td>{{trip.date.split("T")[0] | date : 'fullDate'}}</td>
       <td>
         <button class="btn btn-success btn-sm mx-auto" routerLink="trips/{{trip._id}}/catches">View</button>
         <button class="btn btn-primary btn-sm mx-auto" routerLink="edit/{{trip._id}}">Edit</button>

@@ -1,26 +1,25 @@
 import { HttpClient, HttpHandler } from '@angular/common/http';
-import { InjectionToken } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { provideRoutes, RouterModule, Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TOAST_CONFIG, IndividualConfig, ToastrService } from 'ngx-toastr';
+import { IndividualConfig, ToastrService } from 'ngx-toastr';
 
 import { TripComponent } from './trip.component';
 localStorage.setItem('okta-token-storage', '{{"idToken":{"claims":{"sub":"00uqkfl9cbeaa0Fq65d6"},},}}');
 describe('TripComponent', () => {
-  
+
   const testTripData = {
-    created_at: "2021-05-23T23:59:18.977Z",
-    date: "2021-05-29T00:00:00.000Z",
-    location: "Yampa",
-    tripName: "Yampa",
-    updated_at: "2021-05-23T23:59:18.977Z",
-    _id: "60aaec56b96ccb51925c7f55",
-    _uid: "00uqkfl9cbeaa0Fq65d6"
+    created_at: '2021-05-23T23:59:18.977Z',
+    date: '2021-05-29T00:00:00.000Z',
+    location: 'Yampa',
+    tripName: 'Yampa',
+    updated_at: '2021-05-23T23:59:18.977Z',
+    _id: '60aaec56b96ccb51925c7f55',
+    _uid: '00uqkfl9cbeaa0Fq65d6'
   };
 
-  let config: Routes = [
+  const config: Routes = [
     {
         path: '', component: TripComponent
     }
@@ -42,13 +41,13 @@ describe('TripComponent', () => {
   };
 
   beforeEach(async () => {
-    await localStorage.setItem('okta-token-storage', '{{"idToken":{"claims":{"sub":"00uqkfl9cbeaa0Fq65d6"},},}}');  
+    await localStorage.setItem('okta-token-storage', '{{"idToken":{"claims":{"sub":"00uqkfl9cbeaa0Fq65d6"},},}}');
   });
 
   beforeEach(() => {
 
     TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, RouterModule, RouterTestingModule.withRoutes([]),],
+      imports: [ReactiveFormsModule, RouterModule, RouterTestingModule.withRoutes([])],
       declarations: [ TripComponent ],
       providers: [ HttpClient, HttpHandler, { provide: ToastrService, useValue: toastrService }, provideRoutes(config)]
     })
@@ -62,7 +61,6 @@ describe('TripComponent', () => {
     fixture.detectChanges();
   });
 
-  
   it('should create the component', () => {
     expect(component).toBeTruthy();
   });
@@ -76,7 +74,6 @@ describe('TripComponent', () => {
     expect(tableRows.length).toBe(2);
   });
 
-  
   it('should have 5 columns with the titles #, Trip Name, Location, Date, and Action', () => {
     const tableHeaders = fixture.nativeElement.querySelectorAll('tr')[0];
     expect(tableHeaders.cells[0].innerHTML).toBe('#');
@@ -91,6 +88,6 @@ describe('TripComponent', () => {
     expect(dataRow.cells[0].innerHTML).toBe('1');
     expect(dataRow.cells[1].innerHTML).toBe('Yampa');
     expect(dataRow.cells[2].innerHTML).toBe('Yampa');
-    expect(dataRow.cells[3].innerHTML).toBe('2021-05-29T00:00:00.000Z');
+    expect(dataRow.cells[3].innerHTML).toBe('Saturday, May 29, 2021');
   });
 });

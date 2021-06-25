@@ -1,24 +1,29 @@
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { provideRoutes, Router, RouterModule, Routes } from '@angular/router';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { provideRoutes, Routes } from '@angular/router';
 import { IndividualConfig, ToastrService } from 'ngx-toastr';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { AddTripComponent } from './add-trip.component';
-import { OKTA_CONFIG,OktaAuthService } from '@okta/okta-angular';
+import { OKTA_CONFIG } from '@okta/okta-angular';
 import { OktaAuthOptions } from '@okta/okta-auth-js';
 
 describe('AddTripComponent', () => {
 
+  const tripNameKey = 'tripName';
+  const locationKey = 'location';
+  const dateKey = 'date';
+  const requiredKey = 'required';
+
   const testTripData = {
-    created_at: "2021-05-23T23:59:18.977Z",
-    date: "2021-05-29T00:00:00.000Z",
-    location: "Yampa",
-    tripName: "Yampa",
-    updated_at: "2021-05-23T23:59:18.977Z",
-    _id: "60aaec56b96ccb51925c7f55",
-    _uid: "00uqkfl9cbeaa0Fq65d6"
+    created_at: '2021-05-23T23:59:18.977Z',
+    date: '2021-05-29T00:00:00.000Z',
+    location: 'Yampa',
+    tripName: 'Yampa',
+    updated_at: '2021-05-23T23:59:18.977Z',
+    _id: '60aaec56b96ccb51925c7f55',
+    _uid: '00uqkfl9cbeaa0Fq65d6'
   };
 
   let component: AddTripComponent;
@@ -37,7 +42,7 @@ describe('AddTripComponent', () => {
     ) => {},
   };
 
-  let config: Routes = [
+  const config: Routes = [
     {
         path: '', component: AddTripComponent
     }
@@ -49,24 +54,32 @@ describe('AddTripComponent', () => {
   };
 
   beforeEach(async () => {
-    await localStorage.setItem('okta-token-storage', '{{"idToken":{"claims":{"sub":"00uqkfl9cbeaa0Fq65d6"},},}}');  
+    await localStorage.setItem('okta-token-storage', '{{"idToken":{"claims":{"sub":"00uqkfl9cbeaa0Fq65d6"},},}}');
   });
 
   beforeEach(() => {
-    localStorage.setItem('okta-token-storage', '{{"idToken":{"claims":{"sub":"00uqkfl9cbeaa0Fq65d6"},},}}');  
+    localStorage.setItem('okta-token-storage', '{{"idToken":{"claims":{"sub":"00uqkfl9cbeaa0Fq65d6"},},}}');
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes([]),
         ReactiveFormsModule
       ],
       declarations: [ AddTripComponent ],
-      providers: [HttpHandler, HttpClient, FormBuilder,{ provide: ToastrService, useValue: toastrService }, provideRoutes(config), { provide: OKTA_CONFIG, useValue: oktaConfig }]
+      providers: [
+        HttpHandler,
+        HttpClient,
+        FormBuilder,
+        { provide: ToastrService, useValue: toastrService },
+        provideRoutes(config),
+        { provide: OKTA_CONFIG,
+          useValue: oktaConfig }
+        ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    localStorage.setItem('okta-token-storage', '{{"idToken":{"claims":{"sub":"00uqkfl9cbeaa0Fq65d6"},},}}');  
+    localStorage.setItem('okta-token-storage', '{{"idToken":{"claims":{"sub":"00uqkfl9cbeaa0Fq65d6"},},}}');
     fixture = TestBed.createComponent(AddTripComponent);
     component = fixture.componentInstance;
     const fb = new FormBuilder();
@@ -84,68 +97,65 @@ describe('AddTripComponent', () => {
 
   describe('Validation tests', () => {
     it('trip name field validity', () => {
-      const tripName = component.form.controls['tripName'];
+      const tripName = component.form.controls[tripNameKey];
       expect(tripName.valid).toBeFalsy();
-    });  
-    
+    });
+
     it('location field validity', () => {
-      const location = component.form.controls['location'];
+      const location = component.form.controls[locationKey];
       expect(location.valid).toBeFalsy();
-    });  
-    
+    });
+
     it('date field validity', () => {
-      const date = component.form.controls['date'];
+      const date = component.form.controls[dateKey];
       expect(date.valid).toBeFalsy();
     });
   });
 
-
   describe('Error tests', () => {
     it('trip name errors', () => {
-      const tripName = component.form.controls['tripName'];
+      const tripName = component.form.controls[tripNameKey];
       const errors = tripName.errors || {};
-      expect(errors['required']).toBeTruthy();
+      expect(errors[requiredKey]).toBeTruthy();
     });
 
     it('location errors', () => {
-      const location = component.form.controls['location'];
+      const location = component.form.controls[locationKey];
       const errors = location.errors || {};
-      expect(errors['required']).toBeTruthy();
+      expect(errors[requiredKey]).toBeTruthy();
     });
 
     it('date errors', () => {
-      const date = component.form.controls['date'];
+      const date = component.form.controls[dateKey];
       const errors = date.errors || {};
-      expect(errors['required']).toBeTruthy();
+      expect(errors[requiredKey]).toBeTruthy();
     });
   });
 
-
   describe('Fix validation and error tests', () => {
     it('trip name fix validation and errors', () => {
-      const tripName = component.form.controls['tripName'];
+      const tripName = component.form.controls[tripNameKey];
       tripName.setValue('Yampa');
       const errors = tripName.errors || {};
-      expect(errors['required']).toBeFalsy();
+      expect(errors[requiredKey]).toBeFalsy();
       expect(tripName.valid).toBeTruthy();
     });
 
     it('location fix validation and errors', () => {
-      const location = component.form.controls['location'];
+      const location = component.form.controls[locationKey];
       location.setValue('Yampa');
       const errors = location.errors || {};
-      expect(errors['required']).toBeFalsy();
+      expect(errors[requiredKey]).toBeFalsy();
       expect(location.valid).toBeTruthy();
     });
 
     it('date fix validation and errors', () => {
-      const date = component.form.controls['date'];
+      const date = component.form.controls[dateKey];
       date.setValue('2021-05-29T00:00:00.000Z');
       const errors = date.errors || {};
-      expect(errors['required']).toBeFalsy();
+      expect(errors[requiredKey]).toBeFalsy();
       expect(date.valid).toBeTruthy();
     });
   });
-
 });
 
