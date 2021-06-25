@@ -1,19 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { NavbarComponent } from './navbar.component';
 import { OKTA_CONFIG, OktaAuthModule, OktaAuthService, OktaAuthGuard } from '@okta/okta-angular';
 import { OktaAuthOptions } from '@okta/okta-auth-js';
 import { By } from '@angular/platform-browser';
 import { provideRoutes, RouterModule, Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ReactiveFormsModule } from '@angular/forms';
 
-let config: Routes = [
+const config: Routes = [
   {
       path: '', component: NavbarComponent
   }
 ];
 describe('NavbarComponent', () => {
+  localStorage.setItem('okta-token-storage', '{{"idToken":{"claims":{"sub":"00uqkfl9cbeaa0Fq65d6"},},}}');
   let component: NavbarComponent;
   let fixture: ComponentFixture<NavbarComponent>;
   const oktaConfig: OktaAuthOptions = {
@@ -21,30 +20,32 @@ describe('NavbarComponent', () => {
     clientId: '0oapny2dw50GFpPsl5d6',
     redirectUri: window.location.origin + '/callback'
   };
-
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
+    await localStorage.setItem('okta-token-storage', '{{"idToken":{"claims":{"sub":"00uqkfl9cbeaa0Fq65d6"},},}}');
+  });
+  beforeEach(() => {
+    TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes([]),
         RouterModule
       ],
       declarations: [ NavbarComponent ],
       providers: [OktaAuthService, OktaAuthGuard, OktaAuthModule, { provide: OKTA_CONFIG, useValue: oktaConfig }, provideRoutes(config)],
-      //imports: [ OktaAuthService, OktaAuthGuard, OktaAuthModule ]
+      // imports: [ OktaAuthService, OktaAuthGuard, OktaAuthModule ]
     })
     .compileComponents();
   });
 
+
+
   beforeEach(() => {
     fixture = TestBed.createComponent(NavbarComponent);
     component = fixture.componentInstance;
-    //component.isAuthenticated = true;
+    // component.isAuthenticated = true;
     fixture.detectChanges();
   });
 
   it('should render title', () => {
-    const fixture = TestBed.createComponent(NavbarComponent);
-    fixture.detectChanges();
     const compiled = fixture.nativeElement;
     expect(compiled.querySelector('.navbar-brand').textContent).toContain('TrackYourCatchCO');
   });

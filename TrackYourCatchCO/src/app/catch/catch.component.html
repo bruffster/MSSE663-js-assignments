@@ -114,7 +114,7 @@
     </button>
   </div>
   <div class="container">
-    <form (ngSubmit)="updateCatchData(catch._id);" #formDirective="ngForm" [formGroup]="updateCatchForm">
+    <form (ngSubmit)="updateCatchData(catch.id);" #formDirective="ngForm" [formGroup]="updateCatchForm">
       <div class="form-group">
         <label for="species">Species</label>
         <input type="text" formControlName="species" [ngClass]="{'is-invalid':submitted2 && f1.species.errors}" class="form-control" placeholder="Enter Species. . .">

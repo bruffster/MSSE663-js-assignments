@@ -8,8 +8,8 @@ import { CatchComponent } from './catch/catch.component';
 import { EditTripComponent } from './trip/edit-trip/edit-trip.component';
 
 const routes: Routes = [
-  { path: '', component:TripComponent, canActivate: [OktaAuthGuard], data: { onAuthRequired } },
-  { path: '#', component:TripComponent, canActivate: [OktaAuthGuard], data: { onAuthRequired } },
+  { path: '', component: TripComponent, canActivate: [OktaAuthGuard], data: { onAuthRequired } },
+  { path: '#', component: TripComponent, canActivate: [OktaAuthGuard], data: { onAuthRequired } },
   { path: 'home', component: TripComponent, canActivate: [OktaAuthGuard], data: { onAuthRequired } },
   { path: 'add-trip', component: AddTripComponent, canActivate: [OktaAuthGuard], data: { onAuthRequired } },
   { path: 'edit/:id', component: EditTripComponent, canActivate: [OktaAuthGuard], data: { onAuthRequired } },

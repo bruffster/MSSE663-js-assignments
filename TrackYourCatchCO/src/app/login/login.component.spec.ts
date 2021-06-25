@@ -1,7 +1,6 @@
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { provideRoutes, Router, RouterModule, Routes } from '@angular/router';
+import { provideRoutes, RouterModule, Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { OKTA_CONFIG, OktaAuthModule, OktaAuthService, OktaAuthGuard } from '@okta/okta-angular';
 import { OktaAuthOptions } from '@okta/okta-auth-js';
@@ -15,7 +14,7 @@ describe('LoginComponent', () => {
     clientId: '0oapny2dw50GFpPsl5d6',
     redirectUri: window.location.origin + '/callback'
   };
-  let config: Routes = [
+  const config: Routes = [
     {
         path: '', component: LoginComponent
     }
@@ -27,7 +26,16 @@ describe('LoginComponent', () => {
         RouterModule
       ],
       declarations: [ LoginComponent ],
-      providers: [HttpClient, HttpHandler,OktaAuthService, OktaAuthGuard, OktaAuthModule, { provide: OKTA_CONFIG, useValue: oktaConfig },provideRoutes(config), {provide: LoginComponent, userClass: LoginComponent}],
+      providers: [
+        HttpClient,
+        HttpHandler,
+        OktaAuthService,
+        OktaAuthGuard,
+        OktaAuthModule,
+        { provide: OKTA_CONFIG, useValue: oktaConfig },
+        provideRoutes(config),
+        { provide: LoginComponent, userClass: LoginComponent }
+      ],
     })
     .compileComponents();
   });
@@ -40,7 +48,7 @@ describe('LoginComponent', () => {
 
   afterEach(async () => {
     await component.widget.remove();
-  })
+  });
 
   it('should create', () => {
     expect(component).toBeTruthy();
