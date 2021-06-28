@@ -1,3 +1,6 @@
 .vscode/
 **/package-lock.json
 **/node_modules
+.mov
+.ppt
+.pptx
