@@ -55,9 +55,4 @@ export class TripComponent implements OnInit {
       () => console.log('deleting trip complete')
     );
   }
-
-  getFormattedDate(originalDate: Date): any {
-    const date1 = new Date(originalDate);
-    return date1.toISOString().substring(0, date1.toISOString().length - 1);
-  }
 }

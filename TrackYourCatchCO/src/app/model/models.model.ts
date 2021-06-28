@@ -1,29 +1,29 @@
 export class OktaUser {
-  id: any;
-  email: any;
-  uid: any;
+  id!: string;
+  email!: string;
+  uid!: string;
 }
 
 export class Trip {
-  id: any;
-  tripName: any;
-  location: any;
+  id!: string;
+  tripName!: string;
+  location!: string;
   date: any;
 }
 
 export class Catch {
-  id: any;
-  uid: any;
-  tripId: any;
-  species: any;
-  length: any;
-  weight: any;
-  location: any;
-  lat: any;
-  lng: any;
+  _id!: string;
+  uid!: string;
+  tripId!: string;
+  species!: string;
+  length!: number;
+  weight!: number;
+  location!: string;
+  lat!: number;
+  lng!: number;
 }
 
 export class Settings {
-  id: any;
+  id!: string;
   googleapikey: any;
 }

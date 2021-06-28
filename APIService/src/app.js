@@ -19,6 +19,6 @@ connectDB();
 //Routes
 app.use('/', require('./routes/index'));
 
-app.listen(3000, () => {
-  console.log('Running on port 3000...');
+app.listen(process.env.PORT, () => {
+  console.log(`Running on port ${process.env.PORT}...`);
 }); 

@@ -15,7 +15,7 @@ export class UserService {
   }
 
   // Gets the okta user from the database
-  getOktaUser(uid: any): any {
+  getOktaUser(uid: string): any {
     return this.httpClient.get(environment.apiUrl + '/okta/' + uid);
   }
 }

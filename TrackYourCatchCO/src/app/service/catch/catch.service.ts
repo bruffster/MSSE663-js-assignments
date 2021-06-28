@@ -10,32 +10,32 @@ export class CatchService {
   constructor(private httpClient: HttpClient) { }
 
   // Get Catches for a given trip and user
-  getCatches(uid: any, tripId: any): any {
+  getCatches(uid: string, tripId: string): any {
     return this.httpClient.get(environment.apiUrl + '/' + uid + '/trips/' + tripId + '/catches');
   }
 
   // Insert catch for a given trip and user
-  insertCatch(uid: any, tripId: any, data: any): any {
+  insertCatch(uid: string, tripId: string, data: any): any {
     return this.httpClient.post(environment.apiUrl + '/' + uid + '/trips/' + tripId + '/catch/add', data);
   }
 
   // Delete a catch
-  deleteCatch(uid: any, tripId: any, id: any): any {
+  deleteCatch(uid: string, tripId: string, id: string): any {
     return this.httpClient.delete(environment.apiUrl + '/' + uid + '/trips/' + tripId + '/catches/' + id);
   }
 
   // Get catch
-  getCatch(uid: any, tripId: any, id: any): any {
+  getCatch(uid: string, tripId: string, id: string): any {
     return this.httpClient.get(environment.apiUrl + '/' + uid + '/trips/' + tripId + '/catches/' + id);
   }
 
   // Update a catch
-  updateCatch(uid: any, tripId: any, id: any, data: any): any {
+  updateCatch(uid: string, tripId: string, id: string, data: any): any {
     return this.httpClient.put(environment.apiUrl + '/' + uid + '/trips/' + tripId + '/catches/edit/' + id, data);
   }
 
   // Update a catch Location
-  updateCatchLocation(uid: any, tripId: any, id: any, data: any): any {
+  updateCatchLocation(uid: string, tripId: string, id: string, data: string): any {
     return this.httpClient.put(environment.apiUrl + '/' + uid + '/trips/' + tripId + '/catches/edit/location/' + id, data);
   }
 }

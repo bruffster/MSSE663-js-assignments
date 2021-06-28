@@ -105,7 +105,7 @@ export class CatchComponent implements OnInit {
       this.show = true;
       await this.getCatchLocation(uid, tripId, id);
 
-      if (this.catch.lat !== null && this.catch.lat !== '' && this.catch.lng !== null && this.catch.lng !== ''){
+      if (this.catch.lat && typeof this.catch.lat != 'undefined' && this.catch.lng && typeof this.catch.lng != 'undefined'){
         const btn = document.getElementById('btn_' + id);
         if (btn !== null) {
           btn.innerHTML = 'Hide Map';
@@ -295,7 +295,7 @@ export class CatchComponent implements OnInit {
     );
   }
 
-  async updateCatchLocationData(id: any): Promise<void> {
+  async updateCatchLocationData(id: string): Promise<void> {
     await this.getCoord();
     this.catchService.updateCatchLocation(this.uid, this.tripId, id, this.coordinate).subscribe(
       (res: any) => {

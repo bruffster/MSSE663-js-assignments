@@ -13,6 +13,10 @@ Run `npm i` to install all of the dependencies inside of the APIService project
 
 Run `npx nodemon app.js` to start the service. This service is listening on port 3000
 
+OR
+
+Run `npm start` to start the service (use the above if this fails)
+
 ## Statement of Originality
 
 I certify that, to the best of my knowledge, the content of this project is of my own work with the exception of areas of code that have been attributed to others in the comments of those relevant files.
@@ -35,6 +39,9 @@ This set of files provide the API service to facilitate data being sent to and f
 
 - v.3
   - Updated some routes to account for manual entry of lat/long on adding and updating catches
+
+- v.4
+  - moved files into src folder, fixed dotenv config
 
 ## Contact information
 

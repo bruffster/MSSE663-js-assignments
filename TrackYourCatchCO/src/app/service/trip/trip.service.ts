@@ -9,7 +9,7 @@ export class TripService {
   constructor(private httpClient: HttpClient) { }
 
   // Get trips data for user
-  getTrips(uid: any): any {
+  getTrips(uid: string): any {
     return this.httpClient.get(environment.apiUrl + '/' + uid + '/trips');
   }
 
@@ -19,17 +19,17 @@ export class TripService {
   }
 
   // Get trip by the ID in the database
-  getTripById(id: any): any {
+  getTripById(id: string): any {
     return this.httpClient.get(environment.apiUrl + '/trip/' + id);
   }
 
   // Update trip data
-  updateTrip(id: any, data: any): any {
+  updateTrip(id: string, data: any): any {
     return this.httpClient.put(environment.apiUrl + '/trip/edit/' + id, data);
   }
 
   // Delete Trip
-  deleteTrip(id: any): any {
+  deleteTrip(id: string): any {
     return this.httpClient.delete(environment.apiUrl + '/trip/' + id);
   }
 
